@@ -1,0 +1,31 @@
+#pragma once
+
+#include <unordered_map>
+#include "BattleshipMap.h"
+
+namespace Battleship
+{
+	enum Row { A = 0, B, C, D, E, F, G, H, I, J };
+	static std::unordered_map<char, Row> const RowTable = 
+	{ {'A', Row::A}, {'B', Row::B}, {'C', Row::C}, {'D', Row::D}, {'E', Row::E}, 
+	{'F', Row::F}, {'G', Row::G}, {'H', Row::H}, {'I', Row::I}, {'J', Row::J} };
+	
+	class Player
+	{
+	private:
+		std::string name;
+		BattleshipMap map;
+		BattleshipMap* opponentMapClonePtr;
+		BattleshipMap mapClone;
+		BattleshipMap opponentDummy;
+	public:
+		Player(std::string name);
+		Player(BattleshipMap* opponentMap, std::string name = "");
+		std::pair<bool, std::string> attack(Row row, int col, bool& won); // row range: [1-10];
+		void setMap(std::string filename);
+		void setOpponentMap(BattleshipMap& map);
+		void printInterface()const;
+		BattleshipMap& getMapClone();
+		std::string getName()const;
+	};
+}
