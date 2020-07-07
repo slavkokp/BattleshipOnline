@@ -1,8 +1,10 @@
 #pragma once
+
 #include <cctype>
+#include <sstream>
 #include "Player.h"
 #include "Connection.h"
-#include <sstream>
+#include "MenuScreen.h"
 
 namespace Battleship
 {
@@ -11,12 +13,16 @@ namespace Battleship
 	private:
 		Player user;
 		Connection* connection = nullptr; // server or client
-		bool isConnected;
 		char getSymbByValue(Row val)const;
 		bool firstTurn;
 		std::pair<Row, int> parseInput(std::string input, bool& isInputValid);
+
+		//GUI variables
+		GameData* gameData;
 	public:
-		Game();
+		Game(int windowWidth, int windowHeight);
+		~Game();
+
 		void askPlayerName();
 		void startGame();
 		bool setMap(std::string filename);
@@ -29,6 +35,9 @@ namespace Battleship
 
 		bool hostGame(unsigned short port);
 		bool joinGame(sf::IpAddress hostIP, unsigned short port);
-		~Game();
+		
+
+		//GUI methods
+		void run();
 	};
 }

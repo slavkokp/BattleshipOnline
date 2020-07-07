@@ -2,8 +2,21 @@
 
 namespace Battleship
 {
-	Game::Game():isConnected(false)
+	Game::Game(int windowWidth, int windowHeight)
 	{
+		this->gameData = new GameData();
+		this->gameData->window.create(sf::VideoMode(windowWidth, windowHeight), "Battleship game", sf::Style::Default);
+		this->gameData->screenManager.addScreen(new MenuScreen(this->gameData), false);
+	}
+
+	Game::~Game()
+	{
+		//temporary
+		if (this->connection != nullptr)
+		{
+			delete this->connection;
+		}
+		delete this->gameData;
 	}
 
 	char Game::getSymbByValue(Row val)const
@@ -178,8 +191,17 @@ namespace Battleship
 		return this->user.setMap(filename);
 	}
 
-	Game::~Game()
+	// GUI methods
+
+	void Game::run()
 	{
-		delete this->connection;
+		while (this->gameData->window.isOpen())
+		{
+			
+			this->gameData->screenManager.handleScreenSwitches();
+			this->gameData->screenManager.getCurrentScreen().handleEvents();
+			this->gameData->screenManager.getCurrentScreen().update();
+			this->gameData->screenManager.getCurrentScreen().render();
+		}
 	}
 }

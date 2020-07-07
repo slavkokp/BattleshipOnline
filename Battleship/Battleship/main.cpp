@@ -4,9 +4,10 @@ int main()
 {
 	unsigned int time_ui = static_cast<unsigned int>(time(NULL));
 	srand(time_ui);
-	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	Battleship::Game game;
-	game.askPlayerName();
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	Battleship::Game game(800, 400);
+	game.run();
+	/*game.askPlayerName();
 	std::cout << "Enter 1 to host or 2 to join: ";
 	int i;
 	std::cin >> i;
@@ -41,6 +42,6 @@ int main()
 	}
 	std::cin.get();
 	game.startGame();
-	system("pause");
+	system("pause");*/
 	return 0;
 }
