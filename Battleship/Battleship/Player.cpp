@@ -2,39 +2,60 @@
 
 namespace Battleship
 {
-	Player::Player(std::string name): name(name), opponentMapClonePtr(nullptr) {}
-
-	Player::Player(BattleshipMap* opponentMap, std::string name) : name(name), opponentMapClonePtr(opponentMap) {};
+	Player::Player(std::string name): name(name) {}
 
 	std::string Player::getName()const
 	{
 		return name;
 	}
 
-	std::pair<bool, std::string> Player::attack(Row row, int col, bool& wonGame)
+	void Player::attack(Row row, int col, bool success)
 	{
-		auto res = (*opponentMapClonePtr).attack((int)row, col);
-		this->opponentDummy[(int)row][col] = res.first ? Hit : Missed;
-		wonGame = (*opponentMapClonePtr).getFieldsLeft() == 0 ? true : false;
+		this->opponentDummy[(int)row][col] = success ? Hit : Missed;
+	}
+
+	std::pair<bool, std::string> Player::takeDamage(Row row, int col, bool& wonGame)
+	{
+		auto res = this->mapClone.attack((int)row, col);
+		wonGame = this->mapClone.getFieldsLeft() == 0 ? true : false;
 		return res;
 	}
-	void Player::setMap(std::string filename)
+
+	bool Player::setMap(std::string filename)
 	{
-		this->map.readMapFromFile(filename);
-		this->mapClone = BattleshipMap(this->map);
+		bool isValid = this->map.readMapFromFile(filename);
+		if (!isValid)
+		{
+			return isValid;
+		}
+		this->mapClone.copy(this->map);
+		return isValid;
 	}
-	void Player::setOpponentMap(BattleshipMap& map)
+
+	void Player::setName(std::string name)
 	{
-		this->opponentMapClonePtr = &map;
+		this->name = name;
 	}
-	void Player::printInterface()const
+
+	void Player::printMaps()const
 	{
 		std::cout << "Opponent's map\t\tYour map" << std::endl;
-		BattleshipMap::printMapsInRow(opponentDummy, mapClone);
-		std::cout << "Enter position to be attacked: ";
+		BattleshipMap::printMapsInRow(this->opponentDummy, this->mapClone);
 	}
+
+	void Player::prepareDisplayalbeMaps()
+	{
+		this->mapClone.copy(this->map);
+		this->opponentDummy.clear();
+	}
+
 	BattleshipMap& Player::getMapClone()
 	{
 		return this->mapClone;
+	}
+
+	BattleshipMap& Player::getOpponentDummy()
+	{
+		return this->opponentDummy;
 	}
 }

@@ -1,89 +1,46 @@
-#include <cctype>
-#include "Player.h"
-#define ZAEBIS 0
-
-using namespace Battleship;
-
-namespace Battleship
-{
-	std::pair<Row, int> parseInput(std::string input, bool& isInputValid)
-	{
-		std::pair<Row, int> res;
-		auto it = RowTable.find(std::toupper(input[0]));
-		if (it != RowTable.end())
-		{
-			res.first = it->second;
-		}
-		else
-		{
-			isInputValid = false;
-			return res;
-		}
-		res.second = std::stoi(input.substr(1)) - 1;
-		if (res.second <= 0 || res.second > 10)
-		{
-			isInputValid = false;
-			return res;
-		}
-		isInputValid = true;
-		return res;
-	}
-}
+#include "Game.h"
 
 int main()
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	Player slava("slava");
-	slava.setMap("BattleshipMapInput.txt");
-	Player dymok("dymok");
-	dymok.setMap("BattleshipMapInput.txt");
-	dymok.setOpponentMap(slava.getMapClone());
-	slava.setOpponentMap(dymok.getMapClone());
-	int turn = 0;
-	std::string input;
-	Player* currPlayer;
-	bool won = false;
-	std::pair<Row, int> parsedInput;
-	std::pair<bool, std::string> attackRes;
-	bool isInputValid;
-	while (true)
+	unsigned int time_ui = static_cast<unsigned int>(time(NULL));
+	srand(time_ui);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	Battleship::Game game;
+	game.askPlayerName();
+	std::cout << "Enter 1 to host or 2 to join: ";
+	int i;
+	std::cin >> i;
+	bool isMapValid;
+	if (i == 1)
 	{
-		if (turn % 2)
-		{
-			currPlayer = &dymok;
-		}
-		else
-		{
-			currPlayer = &slava;
-		}
-		(*currPlayer).printInterface();
-		std::getline(std::cin, input);
-		parsedInput = parseInput(input, isInputValid);
-		if (!isInputValid)
-		{
-			std::cout << "Invalid input, try once more." << std::endl;
-			system("pause");
-			system("cls");
-			continue;
-		}
-		attackRes = currPlayer->attack(parsedInput.first, parsedInput.second, won);
-		if (attackRes.first)
-		{
-			std::cout << "Successful attack! You " << attackRes.second << " enemy ship!" << std::endl;
-		}
-		else
-		{
-			std::cout << "You " << attackRes.second << std::endl;
-		}
-		if (won)
-		{
-			std::cout << currPlayer->getName() << " won!!!" << std::endl;
-			break;
-		}
-		turn++;
-		system("pause");
-		system("CLS");
+		std::cout << "Your IP: " << sf::IpAddress::getPublicAddress() << std::endl;
+		game.hostGame(55555);
+		game.sendFirstTurn();
+		isMapValid = game.setMap("BattleshipMapInput2.txt");
 	}
+	else if (i == 2)
+	{
+		std::cout << "Enter host IP: " << std::endl;
+		std::string IP;
+		std::cin >> IP;
+		sf::IpAddress address(IP);
+		game.joinGame(address, 55555);
+		game.receiveFirstTurn();
+		isMapValid = game.setMap("BattleshipMapInput.txt");
+	}
+	else
+	{
+		std::cout << "wrong input" << std::endl;
+		return 0;
+	}
+	if (!isMapValid)
+	{
+		std::cout << "invalid_map" << std::endl;
+		system("pause");
+		return -1;
+	}
+	std::cin.get();
+	game.startGame();
 	system("pause");
-	return ZAEBIS;
+	return 0;
 }

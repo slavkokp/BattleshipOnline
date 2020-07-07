@@ -1,6 +1,8 @@
 #pragma once
 
 #include <unordered_map>
+#include "Server.h"
+#include "Client.h"
 #include "BattleshipMap.h"
 
 namespace Battleship
@@ -15,17 +17,18 @@ namespace Battleship
 	private:
 		std::string name;
 		BattleshipMap map;
-		BattleshipMap* opponentMapClonePtr;
 		BattleshipMap mapClone;
 		BattleshipMap opponentDummy;
 	public:
-		Player(std::string name);
-		Player(BattleshipMap* opponentMap, std::string name = "");
-		std::pair<bool, std::string> attack(Row row, int col, bool& won); // row range: [1-10];
-		void setMap(std::string filename);
-		void setOpponentMap(BattleshipMap& map);
-		void printInterface()const;
+		Player(std::string name = "");
+		void attack(Row row, int col, bool success); // row range: [1-10];
+		std::pair<bool, std::string> takeDamage(Row row, int col, bool& won); // row range: [1-10];
+		bool setMap(std::string filename);
+		void setName(std::string name);
+		void printMaps()const;
+		void prepareDisplayalbeMaps();
 		BattleshipMap& getMapClone();
+		BattleshipMap& getOpponentDummy();
 		std::string getName()const;
 	};
 }

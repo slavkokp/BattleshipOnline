@@ -18,11 +18,13 @@ namespace Battleship
 		BattleshipMap();
 		BattleshipMap(BattleshipMap& other);
 		bool validateMap()const;
-		void printMap();
+		static void printMap(const BattleshipMap& map);
 		static void printMapsInRow(const BattleshipMap& map1, const BattleshipMap& map2);
 		int getFieldsLeft();
+		void copy(BattleshipMap& other);
 		int* operator[](int i);
-		void readMapFromFile(std::string filePath);
+		void clear();
+		bool readMapFromFile(std::string filePath);
 		std::pair<bool, std::string> attack(int row, int col);
 	};
 }

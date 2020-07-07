@@ -8,15 +8,14 @@ namespace Battleship
 		{
 			for (size_t j = 0; j < MAP_SIZE; j++)
 			{
-				map[i][j] = 0;
+				this->map[i][j] = 0;
 			}
 		}
-		fieldsLeft = 20;
+		this->fieldsLeft = 0;
 	}
 
 	BattleshipMap::BattleshipMap(BattleshipMap& other)
 	{
-		this->fieldsLeft = other.fieldsLeft;
 		for (size_t i = 0; i < MAP_SIZE; i++)
 		{
 			for (size_t j = 0; j < MAP_SIZE; j++)
@@ -24,26 +23,27 @@ namespace Battleship
 				this->map[i][j] = other.map[i][j];
 			}
 		}
+		this->fieldsLeft = other.fieldsLeft;
 	}
 
-	void BattleshipMap::printMap()
+	void BattleshipMap::printMap(const BattleshipMap& map)
 	{
 		for (int i = 0; i < MAP_SIZE; i++)
 		{
 			for (int j = 0; j < MAP_SIZE; j++)
 			{
-				std::cout << map[i][j] << ' ';
+				std::cout << map.map[i][j] << ' ';
 			}
 			std::cout << std::endl;
 		}
 	}
 
-	void BattleshipMap::printMapsInRow(const BattleshipMap & map1, const BattleshipMap & map2)
+	void BattleshipMap::printMapsInRow(const BattleshipMap& map1, const BattleshipMap& map2)
 	{
 		char symb = 'A';
 		for (int i = 0; i < 2; i++)
 		{
-			std::cout << "  ";
+			if (!i) std::cout << "  ";
 			for (int j = 0; j < MAP_SIZE; j++)
 			{
 				std::cout << j + 1 << ' ';
@@ -67,6 +67,18 @@ namespace Battleship
 		}
 	}
 
+	void BattleshipMap::copy(BattleshipMap& other)
+	{
+		this->fieldsLeft = other.fieldsLeft;
+		for (size_t i = 0; i < MAP_SIZE; i++)
+		{
+			for (size_t j = 0; j < MAP_SIZE; j++)
+			{
+				this->map[i][j] = other.map[i][j];
+			}
+		}
+	}
+
 	int BattleshipMap::getFieldsLeft()
 	{
 		return fieldsLeft;
@@ -77,7 +89,19 @@ namespace Battleship
 		return this->map[i];
 	}
 
-	void BattleshipMap::readMapFromFile(std::string filePath)
+	void BattleshipMap::clear()
+	{
+		this->fieldsLeft = 0;
+		for (size_t i = 0; i < MAP_SIZE; i++)
+		{
+			for (size_t j = 0; j < MAP_SIZE; j++)
+			{
+				this->map[i][j] = 0;
+			}
+		}
+	}
+
+	bool BattleshipMap::readMapFromFile(std::string filePath)
 	{
 		std::ifstream inputFile;
 		inputFile.open(filePath);
@@ -89,6 +113,8 @@ namespace Battleship
 			}
 		}
 		inputFile.close();
+		this->fieldsLeft = 20;
+		return validateMap();
 	}
 
 	std::pair<bool, std::string> BattleshipMap::attack(int row, int col)
