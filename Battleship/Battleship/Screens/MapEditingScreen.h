@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ScreenManager.h"
+#include "../Controllers/ScreenManager.h"
 
 namespace Battleship
 {

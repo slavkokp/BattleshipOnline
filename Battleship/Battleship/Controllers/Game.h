@@ -2,9 +2,9 @@
 
 #include <cctype>
 #include <sstream>
-#include "Player.h"
-#include "Connection.h"
-#include "MenuScreen.h"
+#include "../GameClasses/Player.h"
+#include "../Network/Connection.h"
+#include "../Screens/MenuScreen.h"
 
 namespace Battleship
 {

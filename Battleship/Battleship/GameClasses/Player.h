@@ -1,9 +1,9 @@
 #pragma once
 
 #include <unordered_map>
-#include "Server.h"
-#include "Client.h"
 #include "BattleshipMap.h"
+#include "../Network/Server.h"
+#include "../Network/Client.h"
 
 namespace Battleship
 {

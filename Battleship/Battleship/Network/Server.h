@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <SFML/Network.hpp>
 #include "Connection.h"
 
 namespace Battleship

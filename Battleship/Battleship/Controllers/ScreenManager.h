@@ -2,8 +2,8 @@
 
 #include <stack>
 #include <SFML/Window.hpp>
-#include "Screen.h"
 #include "ResourceManager.h"
+#include "../Screens/Screen.h"
 
 namespace Battleship
 {
