@@ -8,6 +8,11 @@ namespace Battleship
 		testShape.setFillColor(sf::Color::Cyan);
 	}
 
+	MenuScreen::~MenuScreen()
+	{
+		
+	}
+
 	void MenuScreen::update()
 	{
 	}
@@ -25,6 +30,13 @@ namespace Battleship
 			{
 				printf("Height: %d, Width: %d\n", sfEvent.size.height, sfEvent.size.width);
 			}
+			if (sfEvent.type == sf::Event::KeyPressed)
+			{
+				if (sfEvent.key.code == sf::Keyboard::Enter)
+				{
+					this->data->screenManager.addScreen(new MapEditingScreen(this->data), true);
+				}
+			}
 		}
 	}
 
@@ -34,6 +46,4 @@ namespace Battleship
 		this->data->window.draw(this->testShape);
 		this->data->window.display();
 	}
-
-	
 }

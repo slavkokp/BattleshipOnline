@@ -1,15 +1,9 @@
 #pragma once
 
-#ifndef SFML_GRAPHICS_WINDOW
-#define SFML_GRAPHICS_WINDOW
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-
-#endif
-
 #include <stack>
+#include <SFML/Window.hpp>
 #include "Screen.h"
+#include "ResourceManager.h"
 
 namespace Battleship
 {
@@ -36,6 +30,7 @@ namespace Battleship
 	{
 		sf::RenderWindow window;
 		ScreenManager screenManager;
+		ResourceManager resourceManager;
 	};
 }
 

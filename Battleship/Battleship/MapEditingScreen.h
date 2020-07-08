@@ -1,17 +1,17 @@
 #pragma once
 
-#include "MapEditingScreen.h"
+#include "ScreenManager.h"
 
 namespace Battleship
 {
-	class MenuScreen : public Screen
+	class MapEditingScreen : public Screen
 	{
 	private:
 		GameData* data;
-		sf::CircleShape testShape;
+		sf::RectangleShape test;
 	public:
-		MenuScreen(GameData* data);
-		~MenuScreen();
+		MapEditingScreen(GameData* data);
+		~MapEditingScreen();
 
 		void update()override;
 		void handleEvents()override;
