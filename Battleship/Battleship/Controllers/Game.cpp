@@ -28,6 +28,7 @@ namespace Battleship
 				return it.first;
 			}
 		}
+		return '\0';
 	}
 
 	void Game::askPlayerName()
@@ -197,7 +198,6 @@ namespace Battleship
 	{
 		while (this->gameData->window.isOpen())
 		{
-			
 			this->gameData->screenManager.handleScreenSwitches();
 			this->gameData->screenManager.getCurrentScreen().handleEvents();
 			this->gameData->screenManager.getCurrentScreen().update();

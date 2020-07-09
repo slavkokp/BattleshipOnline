@@ -4,6 +4,7 @@
 #include <SFML/Window.hpp>
 #include "ResourceManager.h"
 #include "../Screens/Screen.h"
+#include "../Widgets/Button.h"
 
 namespace Battleship
 {

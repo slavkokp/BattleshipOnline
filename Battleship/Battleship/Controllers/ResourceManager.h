@@ -30,5 +30,7 @@ namespace Battleship
 		void loadMusicFromFile(std::string musicTag, std::string filename);
 		void disposeMusic(std::string musicTag);
 		sf::Music& getMusic(std::string musicTag);
+
+		static void resizeSprite(sf::Sprite& sprite, sf::Vector2f newBounds);
 	};
 }

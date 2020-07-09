@@ -29,7 +29,10 @@ namespace Battleship
 
 	void ResourceManager::disposeTexture(std::string textureTag)
 	{
-		this->textures.erase(textureTag);
+		if (!disposed)
+		{
+			this->textures.erase(textureTag);
+		}
 	}
 
 	sf::Texture& ResourceManager::getTexture(std::string textureTag)
@@ -52,7 +55,10 @@ namespace Battleship
 
 	void ResourceManager::disposeFont(std::string fontTag)
 	{
-		this->textures.erase(fontTag);
+		if (!disposed)
+		{
+			this->textures.erase(fontTag);
+		}
 	}
 
 	sf::Font& ResourceManager::getFont(std::string fontTag)
@@ -85,5 +91,10 @@ namespace Battleship
 	sf::Music& ResourceManager::getMusic(std::string musicTag)
 	{
 		return this->music.at(musicTag);
+	}
+
+	void ResourceManager::resizeSprite(sf::Sprite& sprite, sf::Vector2f newBounds)
+	{
+		sprite.setScale(newBounds.x / sprite.getLocalBounds().width, newBounds.y / sprite.getLocalBounds().height);
 	}
 }
