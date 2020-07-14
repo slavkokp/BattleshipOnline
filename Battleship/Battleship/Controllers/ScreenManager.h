@@ -1,10 +1,11 @@
 #pragma once
 
 #include <stack>
-#include <SFML/Window.hpp>
 #include "ResourceManager.h"
 #include "../Screens/Screen.h"
 #include "../Widgets/Button.h"
+#include "../GameClasses/Player.h"
+#include "../Controllers/InputManager.h"
 
 namespace Battleship
 {
@@ -29,9 +30,11 @@ namespace Battleship
 	};
 	struct GameData
 	{
+		Player player;
 		sf::RenderWindow window;
 		ScreenManager screenManager;
 		ResourceManager resourceManager;
+		InputManager inputManager;
 	};
 }
 

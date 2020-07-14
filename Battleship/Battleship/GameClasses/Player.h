@@ -21,14 +21,20 @@ namespace Battleship
 		BattleshipMap opponentDummy;
 	public:
 		Player(std::string name = "");
+		
 		void attack(Row row, int col, bool success); // row range: [1-10];
 		std::pair<bool, std::string> takeDamage(Row row, int col, bool& won); // row range: [1-10];
-		bool setMap(std::string filename);
-		void setName(std::string name);
+		
 		void printMaps()const;
 		void prepareDisplayalbeMaps();
+
+		bool setMap(std::string filename);
+		bool setMap(BattleshipMap map);
+		void setName(std::string name);
+
 		BattleshipMap& getMapClone();
 		BattleshipMap& getOpponentDummy();
+		BattleshipMap& getMap();
 		std::string getName()const;
 	};
 }

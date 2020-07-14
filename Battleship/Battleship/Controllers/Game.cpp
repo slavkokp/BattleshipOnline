@@ -2,9 +2,8 @@
 
 namespace Battleship
 {
-	Game::Game(int windowWidth, int windowHeight)
+	Game::Game(int windowWidth, int windowHeight) : gameData(new GameData()), user(gameData->player)
 	{
-		this->gameData = new GameData();
 		this->gameData->window.create(sf::VideoMode(windowWidth, windowHeight), "Battleship game", sf::Style::Default);
 		this->gameData->screenManager.addScreen(new MenuScreen(this->gameData), false);
 	}

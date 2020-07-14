@@ -101,6 +101,70 @@ namespace Battleship
 		}
 	}
 
+	std::vector<sf::Vector2u> BattleshipMap::getShipsCoords()
+	{
+		std::vector<sf::Vector2u> res;
+		unsigned int begin;
+		int counter = 0;
+		for (int i = 0; i < MAP_SIZE; i++)
+		{
+			for (int j = 0; j < MAP_SIZE; j++)
+			{
+				if (map[i][j])
+				{
+					begin = i * 10 + j;
+					if (j < 9 && map[i][j + 1])
+					{
+						counter++;
+						if (j < 8 && map[i][j + 2])
+						{
+							counter++;
+							if (j < 7 && map[i][j + 3])
+							{
+								counter++;
+							}
+						}
+						j += counter;
+						res.push_back(sf::Vector2u(begin, i * 10 + j));
+						counter = 0;
+						continue;
+					}
+					if ((i < 1 || !map[i - 1][j]) && (i > 8 || !map[i + 1][j]))
+					{
+						begin = i * 10 + j;
+						res.push_back(sf::Vector2u(begin, begin));
+					}
+				}
+			}
+		}
+		for (int j = 0; j < MAP_SIZE; j++)
+		{
+			for (int i = 0; i < MAP_SIZE; i++)
+			{
+				if (map[i][j])
+				{
+					begin = i * 10 + j;
+					if (i < 9 && map[i + 1][j])
+					{
+						counter++;
+						if (i < 8 && map[i + 2][j])
+						{
+							counter++;
+							if (i < 7 && map[i + 3][j])
+							{
+								counter++;
+							}
+						}
+						i += counter;
+						res.push_back(sf::Vector2u(begin, i * 10 + j));
+						counter = 0;
+					}
+				}
+			}
+		}
+		return res;
+	}
+
 	bool BattleshipMap::readMapFromFile(std::string filePath)
 	{
 		std::ifstream inputFile;

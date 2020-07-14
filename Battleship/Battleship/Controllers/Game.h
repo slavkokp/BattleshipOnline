@@ -2,16 +2,15 @@
 
 #include <cctype>
 #include <sstream>
-#include "../GameClasses/Player.h"
 #include "../Network/Connection.h"
-#include "../Screens/MenuScreen.h"
+#include "../Screens/GameScreen.h"
 
 namespace Battleship
 {
 	class Game
 	{
 	private:
-		Player user;
+		Player& user;
 		Connection* connection = nullptr; // server or client
 		char getSymbByValue(Row val)const;
 		bool firstTurn;

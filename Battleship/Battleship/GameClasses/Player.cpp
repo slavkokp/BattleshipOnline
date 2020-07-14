@@ -32,6 +32,16 @@ namespace Battleship
 		return isValid;
 	}
 
+	bool Player::setMap(BattleshipMap map)
+	{
+		if (map.validateMap())
+		{
+			this->map.copy(map);
+			return true;
+		}
+		return false;
+	}
+
 	void Player::setName(std::string name)
 	{
 		this->name = name;
@@ -52,6 +62,11 @@ namespace Battleship
 	BattleshipMap& Player::getMapClone()
 	{
 		return this->mapClone;
+	}
+
+	BattleshipMap& Player::getMap()
+	{
+		return this->map;
 	}
 
 	BattleshipMap& Player::getOpponentDummy()

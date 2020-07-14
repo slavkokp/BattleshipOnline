@@ -13,14 +13,11 @@ namespace Battleship
 		sf::Sprite background;
 
 		std::map<std::string, Button*> menuOptions;
-
-		sf::Vector2f mousePosView;
 	public:
 		MenuScreen(GameData* data);
 		~MenuScreen();
 
 		void updateMenuOptions();
-		void updateMousePosView();
 		void update()override;
 		void handleEvents()override;
 		void render()override;

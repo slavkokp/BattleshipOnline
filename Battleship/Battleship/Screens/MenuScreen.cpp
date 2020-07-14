@@ -32,26 +32,25 @@ namespace Battleship
 		}
 	}
 
-	void MenuScreen::updateMousePosView()
-	{
-		this->mousePosView = this->data->window.mapPixelToCoords(sf::Mouse::getPosition(this->data->window));
-	}
-
 	void MenuScreen::updateMenuOptions()
 	{
 		for (auto& it : this->menuOptions)
 		{
-			it.second->update(this->mousePosView);
+			it.second->update(data->inputManager.getMousePosView());
 		}
 		if (this->menuOptions["Exit"]->isPressed())
 		{
 			this->data->window.close();
 		}
+		if (this->menuOptions["Edit map"]->isPressed())
+		{
+			this->data->screenManager.addScreen(new MapEditingScreen(this->data), false);
+		}
 	}
 
 	void MenuScreen::update()
 	{
-		this->updateMousePosView();
+		this->data->inputManager.updateMousePosView(this->data->window);
 		this->updateMenuOptions();
 	}
 
@@ -67,13 +66,6 @@ namespace Battleship
 			if (sfEvent.type == sf::Event::Resized)
 			{
 				printf("Height: %d, Width: %d\n", sfEvent.size.height, sfEvent.size.width);
-			}
-			if (sfEvent.type == sf::Event::KeyPressed)
-			{
-				if (sfEvent.key.code == sf::Keyboard::Enter)
-				{
-					this->data->screenManager.addScreen(new MapEditingScreen(this->data), true);
-				}
 			}
 		}
 	}
