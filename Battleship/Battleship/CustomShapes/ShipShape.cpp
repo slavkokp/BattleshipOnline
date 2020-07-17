@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "ShipShape.h"
 
 namespace Battleship
