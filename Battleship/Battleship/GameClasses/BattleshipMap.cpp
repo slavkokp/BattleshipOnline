@@ -4,14 +4,7 @@ namespace Battleship
 {
 	BattleshipMap::BattleshipMap()
 	{
-		for (size_t i = 0; i < MAP_SIZE; i++)
-		{
-			for (size_t j = 0; j < MAP_SIZE; j++)
-			{
-				this->map[i][j] = 0;
-			}
-		}
-		this->fieldsLeft = 0;
+		this->clear();
 	}
 
 	BattleshipMap::BattleshipMap(BattleshipMap& other)

@@ -2,7 +2,7 @@
 
 namespace Battleship
 {
-	ScreenManager::ScreenManager() : replace(false), remove(false), add(false) {}
+	ScreenManager::ScreenManager() {}
 
 	ScreenManager::~ScreenManager()
 	{
@@ -15,35 +15,38 @@ namespace Battleship
 
 	void ScreenManager::handleScreenSwitches()
 	{
-		if (this->remove && !this->screens.empty())
+		if (!this->requests.empty())
 		{
-			delete this->screens.top();
-			this->screens.pop();
-		}
-		this->remove = false;
-		if (this->add)
-		{
-			if (this->replace && !this->screens.empty())
+			ScreenManagerRequest& request = requests.front();
+			if (request.remove && !this->screens.empty())
 			{
 				delete this->screens.top();
 				this->screens.pop();
 			}
-			this->replace = false;
-			this->screens.push(newScreenPtr);
-			this->add = false;
+			if (request.add)
+			{
+				if (request.replace && !this->screens.empty())
+				{
+					delete this->screens.top();
+					this->screens.pop();
+				}
+				this->screens.push(request.newScreenPtr);
+			}
+			requests.pop();
 		}
 	}
 
 	void ScreenManager::removeScreen()
 	{
-		this->remove = true;
+		this->requests.push(ScreenManagerRequest(nullptr, false, true, false));
 	}
 
 	void ScreenManager::addScreen(Screen* screen, bool replaceCurrent)
 	{
-		this->replace = replaceCurrent;
-		this->add = true;
-		this->newScreenPtr = screen;
+		this->requests.push(ScreenManagerRequest(screen, replaceCurrent, false, true));
+		//this->replace = replaceCurrent;
+		//this->add = true;
+		//this->newScreenPtr = screen;
 	}
 
 	Screen& ScreenManager::getCurrentScreen()

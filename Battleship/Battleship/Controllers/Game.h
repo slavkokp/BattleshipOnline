@@ -3,7 +3,7 @@
 #include <cctype>
 #include <sstream>
 #include "../Network/Connection.h"
-#include "../Screens/GameScreen.h"
+#include "../Screens/MenuScreen.h"
 
 namespace Battleship
 {

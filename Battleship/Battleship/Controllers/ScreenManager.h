@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stack>
+#include <queue>
 #include "ResourceManager.h"
 #include "../Screens/Screen.h"
 #include "../Widgets/Button.h"
@@ -9,15 +10,21 @@
 
 namespace Battleship
 {
+	struct ScreenManagerRequest
+	{
+		Screen* newScreenPtr;
+		bool replace;
+		bool remove;
+		bool add;
+		
+		ScreenManagerRequest(Screen* newScreenPtr, bool replace, bool remove, bool add) : 
+			newScreenPtr(newScreenPtr), replace(replace), remove(remove), add(add) {}
+	};
 	class ScreenManager
 	{
 	private:
 		std::stack<Screen*> screens;
-		Screen* newScreenPtr;
-
-		bool replace;
-		bool remove;
-		bool add;
+		std::queue<ScreenManagerRequest> requests;
 
 	public:
 		ScreenManager();

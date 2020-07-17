@@ -38,13 +38,27 @@ namespace Battleship
 		{
 			it.second->update(data->inputManager.getMousePosView());
 		}
-		if (this->menuOptions["Exit"]->isPressed())
+		if (this->menuOptions["Play"]->isPressed())
 		{
-			this->data->window.close();
+			if (!this->data->player.getMap().validateMap())
+			{
+				// DEBUG, REMOVE LATER
+				this->data->player.setMap("Utils/BattleshipMapInput.txt");
+				//this->data->screenManager.addScreen(new MapEditingScreen(data, true), false);
+			}
+			else
+			{
+				this->data->player.prepareDisplayalbeMaps();
+				this->data->screenManager.addScreen(new GameScreen(data), false);
+			}
 		}
 		if (this->menuOptions["Edit map"]->isPressed())
 		{
-			this->data->screenManager.addScreen(new MapEditingScreen(this->data), false);
+			this->data->screenManager.addScreen(new MapEditingScreen(this->data, false), false);
+		}
+		if (this->menuOptions["Exit"]->isPressed())
+		{
+			this->data->window.close();
 		}
 	}
 

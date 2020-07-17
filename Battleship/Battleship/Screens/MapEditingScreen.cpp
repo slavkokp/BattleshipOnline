@@ -2,8 +2,9 @@
 
 namespace Battleship
 {
-	MapEditingScreen::MapEditingScreen(GameData* data) : data(data), cellSize(20, 20)
+	MapEditingScreen::MapEditingScreen(GameData* data, bool callingByPlayButton) : data(data), cellSize(20, 20)
 	{
+		this->callingByPlayButton = callingByPlayButton;
 		this->displayMessage = false;
 		this->multipleSaveCallsProtection = false;
 		this->returnToDefaultPos = false;
@@ -21,6 +22,11 @@ namespace Battleship
 		this->initMessage();
 		this->initDragShips();
 		this->initShips();
+		
+		if (callingByPlayButton)
+		{
+			this->buttons["Save"]->setString("Continue");
+		}
 	}
 
 	MapEditingScreen::~MapEditingScreen()
@@ -167,7 +173,12 @@ namespace Battleship
 		{
 			if (this->saveMap())
 			{
+				this->data->player.prepareDisplayalbeMaps();
 				this->message.setString("Map changes saved!");
+				if (this->callingByPlayButton)
+				{
+					this->data->screenManager.addScreen(new GameScreen(this->data), true);
+				}
 			}
 			else
 			{
@@ -189,6 +200,7 @@ namespace Battleship
 			}
 		}
 		this->displayMessage = false;
+		this->multipleSaveCallsProtection = false;
 		this->areShipsInDefaultPos = true;
 	}
 
@@ -238,7 +250,7 @@ namespace Battleship
 			{
 				if (dragShips[dragShipIndex] || ships[i].getGlobalBounds().contains(this->data->inputManager.getMousePosView()))
 				{
-					//saving starting position and ship index when drag started 
+					// saving starting position and ship index when drag started 
 					if (!dragStart)
 					{
 
@@ -249,7 +261,7 @@ namespace Battleship
 						dragStart = true;
 						posDiff = this->data->inputManager.getMousePosView() - ships[i].getPosition();
 					}
-					//some aligning when rotated
+					// some aligning when rotated
 					if (rotated)
 					{
 						auto bounds = ships[dragShipIndex].getGlobalBounds();
@@ -266,7 +278,7 @@ namespace Battleship
 				}
 			}
 		}
-		//finished drag and checking if new position is valid
+		// finished drag and checking if new position is valid
 		if (dragStart)
 		{
 			sf::FloatRect bounds = ships[dragShipIndex].getGlobalBounds();

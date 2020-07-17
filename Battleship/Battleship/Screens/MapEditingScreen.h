@@ -1,17 +1,14 @@
 #pragma once
 
-#include "../Controllers/ScreenManager.h"
+#include "GameScreen.h"
 
 namespace Battleship
 {
-	enum Messages
-	{
-		SavedMapMessage = 1,
-		InvalidMapMessage
-	};
 	class MapEditingScreen : public Screen
 	{
 	private:
+		bool callingByPlayButton;
+
 		GameData* data;
 		sf::RectangleShape map;
 		sf::RectangleShape* cells;
@@ -34,7 +31,7 @@ namespace Battleship
 		bool rotated;
 		bool returnToDefaultPos;
 	public:
-		MapEditingScreen(GameData* data);
+		MapEditingScreen(GameData* data, bool callingByPlayButton);
 		~MapEditingScreen();
 
 		void initBackgroundSprite();
@@ -45,7 +42,7 @@ namespace Battleship
 		void initCells();
 		void initDragShips();
 
-		//applies changes on map to actual players map
+		// applies changes on map to actual players map
 		bool saveMap();
 		void setShipsPositionToDefault();
 		void updateButtons();

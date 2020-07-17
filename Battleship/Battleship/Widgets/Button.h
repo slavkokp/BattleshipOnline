@@ -33,6 +33,8 @@ namespace Battleship
 			int activeCharacterSize, sf::Color pressedButtonTextColor, sf::Color color = sf::Color::White);
 		~Button();
 
+		void setString(std::string str);
+
 		bool isPressed();
 		void render(sf::RenderTarget& renderTarget);
 		void update(const sf::Vector2f& mousePos);

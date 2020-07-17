@@ -30,6 +30,12 @@ namespace Battleship
 
 	}
 
+	void Button::setString(std::string str)
+	{
+		this->text.setString(str);
+		this->shape.setSize(sf::Vector2f(this->text.getLocalBounds().width, this->text.getLocalBounds().height));
+	}
+
 	void Button::update(const sf::Vector2f& mousePos)
 	{
 		this->currState = ButtonState::IDLE;
