@@ -78,10 +78,10 @@ namespace Battleship
 		}
 	}
 
-	void Button::render(sf::RenderTarget& renderTarget)
+	void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		renderTarget.draw(this->shape);
-		renderTarget.draw(this->text);
+		target.draw(this->shape, states);
+		target.draw(this->text, states);
 	}
 
 	bool Button::isPressed()

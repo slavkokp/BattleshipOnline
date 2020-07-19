@@ -11,7 +11,7 @@ namespace Battleship
 		PRESSED,
 	};
 
-	class Button
+	class Button : public sf::Drawable
 	{
 	private:
 		ButtonState currState;
@@ -28,6 +28,7 @@ namespace Battleship
 		//private methods
 
 		void setTextColor(sf::Color outlineColor, sf::Color& fillColor);
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
 		Button(sf::Vector2f pos, std::string text, sf::Font font, int idleCharacterSize, 
 			int activeCharacterSize, sf::Color pressedButtonTextColor, sf::Color color = sf::Color::White);
@@ -36,7 +37,6 @@ namespace Battleship
 		void setString(std::string str);
 
 		bool isPressed();
-		void render(sf::RenderTarget& renderTarget);
 		void update(const sf::Vector2f& mousePos);
 	};
 }

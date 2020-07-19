@@ -348,7 +348,7 @@ namespace Battleship
 		this->data->window.draw(backgroundSprite);
 		for (auto& it : this->buttons)
 		{
-			it.second->render(this->data->window);
+			this->data->window.draw(*it.second);
 		}
 		this->data->window.draw(this->map);
 		for (int i = 0; i < 100; i++)

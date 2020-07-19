@@ -1,6 +1,7 @@
 #pragma once
 
 #include "MapEditingScreen.h"
+#include "HostScreen.h"
 
 namespace Battleship
 {
@@ -17,7 +18,8 @@ namespace Battleship
 		MenuScreen(GameData* data);
 		~MenuScreen();
 
-		void updateMenuOptions();
+		void updateMenuOptionsVisual();
+		void updateMenuOptionsFunction();
 		void update()override;
 		void handleEvents()override;
 		void render()override;

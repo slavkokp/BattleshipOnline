@@ -16,7 +16,7 @@ namespace Battleship
 		}
 		
 		data->resourceManager.loadFontFromFile("ButtonFont", "Resourses/VINERITC.TTF");
-		std::vector<std::string> menuOptionsText{ "Play", "Edit map", "Exit" };
+		std::vector<std::string> menuOptionsText{ "Join", "Host game", "Edit map", "Exit" };
 		for (int i = 0; i < menuOptionsText.size(); i++)
 		{
 			this->menuOptions[menuOptionsText[i]] = new Button(sf::Vector2f(this->data->window.getSize().x / 5.f, this->data->window.getSize().y / 3.f + 44.f * i), 
@@ -33,13 +33,18 @@ namespace Battleship
 		}
 	}
 
-	void MenuScreen::updateMenuOptions()
+	void MenuScreen::updateMenuOptionsVisual()
 	{
 		for (auto& it : this->menuOptions)
 		{
 			it.second->update(data->inputManager.getMousePosView());
 		}
-		if (this->menuOptions["Play"]->isPressed())
+		
+	}
+
+	void MenuScreen::updateMenuOptionsFunction()
+	{
+		if (this->menuOptions["Join"]->isPressed())
 		{
 			if (!this->data->player.getMap().validateMap())
 			{
@@ -50,7 +55,21 @@ namespace Battleship
 			else
 			{
 				this->data->player.prepareDisplayalbeMaps();
-				this->data->screenManager.addScreen(new GameScreen(data), false);
+				this->data->screenManager.addScreen(new JoinScreen(data), false);
+			}
+		}
+		if (this->menuOptions["Host game"]->isPressed())
+		{
+			if (!this->data->player.getMap().validateMap())
+			{
+				// DEBUG, REMOVE LATER
+				this->data->player.setMap("Utils/BattleshipMapInput.txt");
+				//this->data->screenManager.addScreen(new MapEditingScreen(data, true), false);
+			}
+			else
+			{
+				this->data->player.prepareDisplayalbeMaps();
+				this->data->screenManager.addScreen(new HostScreen(data), false);
 			}
 		}
 		if (this->menuOptions["Edit map"]->isPressed())
@@ -66,7 +85,11 @@ namespace Battleship
 	void MenuScreen::update()
 	{
 		this->data->inputManager.updateMousePosView(this->data->window);
-		this->updateMenuOptions();
+		this->updateMenuOptionsVisual();
+		if (this->clock.getElapsedTime().asSeconds() > 0.3f)
+		{
+			this->updateMenuOptionsFunction();
+		}
 	}
 
 	void MenuScreen::handleEvents()
@@ -91,7 +114,7 @@ namespace Battleship
 		this->data->window.draw(this->background);
 		for (auto& it : menuOptions)
 		{
-			it.second->render(this->data->window);
+			this->data->window.draw(*it.second);
 		}
 		this->data->window.display();
 	}

@@ -17,7 +17,10 @@ namespace Battleship
 	void GameScreen::update()
 	{
 		this->data->inputManager.updateMousePosView(this->data->window);
-		this->opponentsDummy.updateCellChoosing(this->data->inputManager.getMousePosView());
+		if (this->clock.getElapsedTime().asSeconds() > 0.3f)
+		{
+			this->opponentsDummy.updateCellChoosing(this->data->inputManager.getMousePosView());
+		}
 	}
 
 	void GameScreen::handleEvents()

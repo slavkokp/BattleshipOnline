@@ -33,6 +33,7 @@ namespace Battleship
 				}
 				this->screens.push(request.newScreenPtr);
 			}
+			screens.top()->restartClock();
 			requests.pop();
 		}
 	}
