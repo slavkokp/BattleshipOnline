@@ -8,12 +8,14 @@ namespace Battleship
 		sf::Vector2f size(130, 20);
 		sf::Vector2f windowSize(this->data->window.getSize());
 		this->inputField = new InputField(size, sf::Vector2f((windowSize.x - size.x) / 2 , (windowSize.y - size.y) / 2),
-			this->data->resourceManager.getFont("ButtonFont"), "255.255.255.255", sf::Color::Green);
+			this->data->resourceManager.getFont("ButtonFont"), "192.168.1.113", sf::Color::Green);
 		
 		this->connectionFailed = false;
+		this->connecting = false;
 
 		this->initButtons(windowSize);
 		this->initMessages(windowSize, size);
+		this->data->player.joinGame();
 	}
 
 	JoinScreen::~JoinScreen()
@@ -45,12 +47,27 @@ namespace Battleship
 		this->inputMsg.setPosition(sf::Vector2f((windowSize.x - size.x) / 2, 
 			(windowSize.y - size.y) / 2 - inputMsg.getGlobalBounds().height - 2.f));
 
-		this->connectionFailureMsg.setString("Cannot connect to host!");
-		this->connectionFailureMsg.setFont(this->data->resourceManager.getFont("ButtonFont"));
-		this->connectionFailureMsg.setCharacterSize(16);
-		this->connectionFailureMsg.setFillColor(sf::Color::White);
-		this->connectionFailureMsg.setPosition(sf::Vector2f((windowSize.x - size.x) / 2,
+		this->connectionMsg.setString("Cannot connect to host!");
+		this->connectionMsg.setFont(this->data->resourceManager.getFont("ButtonFont"));
+		this->connectionMsg.setCharacterSize(16);
+		this->connectionMsg.setFillColor(sf::Color::White);
+		this->connectionMsg.setPosition(sf::Vector2f((windowSize.x - size.x) / 2,
 			(windowSize.y + size.y) / 2));
+	}
+
+	void JoinScreen::updateConnecting()
+	{
+		if (this->data->player.getConnection()->isReady(55555, this->inputField->getText()) &&
+			this->data->player.receiveFirstTurn(this->firstTurnPacket))
+		{
+			this->data->screenManager.addScreen(new GameScreen(this->data), true);
+		}
+		if (this->connectionTimer.getElapsedTime().asSeconds() > 10.f)
+		{
+			this->connecting = false;
+			this->connectionFailed = true;
+			this->connectionMsg.setString("Cannot connect to host!");
+		}
 	}
 
 	void JoinScreen::updateButtonsVisual()
@@ -69,6 +86,10 @@ namespace Battleship
 		}
 		if (buttons["Connect"]->isPressed())
 		{
+			this->connecting = true;
+			this->connectionFailed = false;
+			this->connectionMsg.setString("Connecting...");
+			connectionTimer.restart();
 		}
 	}
 
@@ -79,6 +100,10 @@ namespace Battleship
 		if (clock.getElapsedTime().asSeconds() > 0.3f)
 		{
 			this->updateButtonsFunction();
+		}
+		if (this->connecting)
+		{
+			this->updateConnecting();
 		}
 	}
 
@@ -121,9 +146,9 @@ namespace Battleship
 			this->data->window.draw(*it.second);
 		}
 		this->data->window.draw(this->inputMsg);
-		if (this->connectionFailed)
+		if (this->connectionFailed || this->connecting)
 		{
-			this->data->window.draw(this->connectionFailureMsg);
+			this->data->window.draw(this->connectionMsg);
 		}
 		this->data->window.display();
 	}

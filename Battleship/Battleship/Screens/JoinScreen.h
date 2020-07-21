@@ -12,8 +12,12 @@ namespace Battleship
 		std::map<std::string, Button*> buttons;
 		InputField* inputField;
 		sf::Text inputMsg;
-		sf::Text connectionFailureMsg;
+		sf::Text connectionMsg;
+		
+		sf::Packet firstTurnPacket;
+		sf::Clock connectionTimer;
 		bool connectionFailed;
+		bool connecting;
 
 		// private methods
 		void initButtons(sf::Vector2f& windowSize);
@@ -22,6 +26,7 @@ namespace Battleship
 		JoinScreen(GameData* data);
 		~JoinScreen();
 
+		void updateConnecting();
 		void updateButtonsVisual();
 		void updateButtonsFunction();
 		void update()override;

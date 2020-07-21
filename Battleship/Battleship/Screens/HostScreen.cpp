@@ -3,7 +3,7 @@
 
 namespace Battleship
 {
-	HostScreen::HostScreen(GameData* data) : data(data)
+	HostScreen::HostScreen(GameData* data) : data(data), serverPort(55555)
 	{
 		sf::Vector2f windowSize(this->data->window.getSize());
 		this->exitButton = new Button(sf::Vector2f(windowSize.x / 5.f, windowSize.y / 3.f), "Back",
@@ -15,6 +15,16 @@ namespace Battleship
 
 		this->initShowcaseLabel(windowSize, showcaseSize);
 		this->initWaitingMsg(windowSize, showcaseSize);
+		
+		bool firstTurn = rand() % 2;
+		this->data->player.setFirstTurn(firstTurn);
+		this->firstTurnPacket << !firstTurn;
+
+		bool validPort = this->data->player.hostGame(serverPort);
+		if (!validPort)
+		{
+			std::cerr << "invalid port\n";
+		}
 	}
 
 	HostScreen::~HostScreen()
@@ -66,6 +76,11 @@ namespace Battleship
 		if (this->clock.getElapsedTime().asSeconds() > 0.3f)
 		{
 			this->updateButtonFunction();
+		}
+		// if connection established and first turn sent ==> go to game screen
+		if (this->data->player.getConnection()->isReady(0, "") && this->data->player.sendFirstTurn(this->firstTurnPacket))
+		{
+			this->data->screenManager.addScreen(new GameScreen(data), true);
 		}
 	}
 

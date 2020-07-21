@@ -4,18 +4,29 @@
 
 namespace Battleship
 {
-	bool Client::connect(sf::IpAddress serverAdress, unsigned short port)
+	Client::Client()
 	{
-		sf::Socket::Status status = socket.connect(serverAdress, port);
-		if (status != sf::Socket::Done)
+		this->socket.setBlocking(false);
+	}
+
+	void Client::dispose()
+	{
+		this->socket.disconnect();
+	}
+
+	sf::TcpSocket& Client::getSocket()
+	{
+		return this->socket;
+	}
+
+	bool Client::isReady(unsigned short port, sf::IpAddress serverAdress)
+	{
+		if (this->socket.getRemotePort() == 0)
 		{
-			std::cout << "cannot connect to " << serverAdress.toString() << ':' << port << std::endl;
+			this->socket.connect(serverAdress, port);
+			//std::cout << "cannot connect to " << serverAdress.toString() << ':' << port << std::endl;
 			return false;
 		}
 		return true;
-	}
-	sf::TcpSocket& Client::getSocket()
-	{
-		return socket;
 	}
 }

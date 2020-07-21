@@ -3,7 +3,7 @@
 
 namespace Battleship
 {
-	Game::Game(int windowWidth, int windowHeight) : gameData(new GameData()), user(gameData->player)
+	Game::Game(int windowWidth, int windowHeight) : gameData(new GameData()), user(gameData->player), connection(nullptr)
 	{
 		this->gameData->window.create(sf::VideoMode(windowWidth, windowHeight), "Battleship game", sf::Style::Default);
 		this->gameData->screenManager.addScreen(new MenuScreen(this->gameData), false);
@@ -39,7 +39,7 @@ namespace Battleship
 		this->user.setName(name);
 	}
 
-	bool Game::hostGame(unsigned short port)
+	/*bool Game::hostGame(unsigned short port)
 	{
 		Server* server = new Server();
 		this->connection = server;
@@ -51,7 +51,7 @@ namespace Battleship
 		Client* client = new Client();
 		this->connection = client;
 		return client->connect(hostIP, port);
-	}
+	}*/
 
 	void Game::startGame()
 	{
@@ -134,7 +134,7 @@ namespace Battleship
 		}
 	}
 
-	bool Game::sendFirstTurn()
+	/*bool Game::sendFirstTurn()
 	{
 		if (this->connection != nullptr)
 		{
@@ -157,7 +157,7 @@ namespace Battleship
 			return true;
 		}
 		return false;
-	}
+	}*/
 
 	std::pair<Row, int> Game::parseInput(std::string input, bool& isInputValid)
 	{

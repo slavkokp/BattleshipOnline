@@ -11,12 +11,16 @@ namespace Battleship
 	{
 	private:
 		Player& user;
-		Connection* connection = nullptr; // server or client
-		char getSymbByValue(Row val)const;
+		Connection* connection; // server or client
 		bool firstTurn;
+		
+		//private methods
+
+		char getSymbByValue(Row val)const;
 		std::pair<Row, int> parseInput(std::string input, bool& isInputValid);
 
 		//GUI variables
+
 		GameData* gameData;
 	public:
 		Game(int windowWidth, int windowHeight);
@@ -27,13 +31,13 @@ namespace Battleship
 		bool setMap(std::string filename);
 		
 		// if connection established, randomly sets firstTurn and sends it to the opponent
-		bool sendFirstTurn();
+		//bool sendFirstTurn();
 
 		// if connection established, receives firstTurn packet
-		bool receiveFirstTurn();
+		//bool receiveFirstTurn();
 
-		bool hostGame(unsigned short port);
-		bool joinGame(sf::IpAddress hostIP, unsigned short port);
+		//bool hostGame(unsigned short port);
+		//bool joinGame(sf::IpAddress hostIP, unsigned short port);
 		
 
 		//GUI methods

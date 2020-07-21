@@ -9,7 +9,12 @@ namespace Battleship
 	private:
 		sf::TcpSocket socket;
 	public:
-		bool connect(sf::IpAddress serverAdress, unsigned short port);
+		Client();
+
+		void dispose()override;
 		sf::TcpSocket& getSocket() override;
+
+		//use this to connect
+		bool isReady(unsigned short port, sf::IpAddress serverAdress) override;
 	};
 }

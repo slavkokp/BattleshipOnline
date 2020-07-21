@@ -6,8 +6,9 @@ namespace Battleship
 	MapShape::MapShape(BattleshipMap& battleshipMap, sf::Vector2f cellSize, bool empty, sf::Vector2f position, sf::Color cellFillColor, sf::Color cellOutlineColor)
 		: cellSize(cellSize), battleshipMap(battleshipMap), empty(empty)
 	{
+		this->defaultCellColor = cellFillColor;
 		this->cells = new sf::RectangleShape[CELLS_COUNT];
-		this->initCells(cellFillColor, cellOutlineColor);
+		this->initCells(cellOutlineColor);
 
 		if (!this->empty)
 		{
@@ -18,6 +19,10 @@ namespace Battleship
 
 		this->map.setSize(cellSize * 10.f);
 		this->map.setFillColor(sf::Color::Transparent);
+		
+		this->chosenCellColor = sf::Color(0, 0, 139);
+		this->destroyedShipCellColor = sf::Color::Red;
+		this->missedCellColor = sf::Color(0, 0, 100);
 	}
 
 	MapShape::~MapShape()
@@ -34,7 +39,7 @@ namespace Battleship
 		delete[] shipsStartingPos;
 	}
 
-	void MapShape::initCells(sf::Color cellFillColor, sf::Color cellOutlineColor)
+	void MapShape::initCells(sf::Color cellOutlineColor)
 	{
 		sf::Vector2f mapPos = this->map.getPosition();
 
@@ -42,10 +47,10 @@ namespace Battleship
 		{
 			for (int j = 0; j < CELLS_IN_ROW_COUNT; j++)
 			{
-				this->cells[i * CELLS_IN_ROW_COUNT + j].setPosition(mapPos.x + i * cellSize.x, mapPos.y + j * cellSize.y);
+				this->cells[i * CELLS_IN_ROW_COUNT + j].setPosition(mapPos.x + j * cellSize.x, mapPos.y + i * cellSize.y);
 				this->cells[i * CELLS_IN_ROW_COUNT + j].setSize(cellSize);
 
-				this->cells[i * CELLS_IN_ROW_COUNT + j].setFillColor(cellFillColor);
+				this->cells[i * CELLS_IN_ROW_COUNT + j].setFillColor(this->defaultCellColor);
 				this->cells[i * CELLS_IN_ROW_COUNT + j].setOutlineColor(cellOutlineColor);
 				this->cells[i * CELLS_IN_ROW_COUNT + j].setOutlineThickness(-1.f);
 			}
@@ -73,7 +78,7 @@ namespace Battleship
 			{
 				for (int j = 0; j < 5 - i; j++, k++)
 				{
-					this->ships[k] = new ShipShape(i, this->cellSize, sf::Color::Green, sf::Color::White, -1.f);
+					this->ships[k] = new ShipShape(i, this->cellSize, sf::Color(0, 255, 0, 128), sf::Color::White, -1.f);
 					this->ships[k]->setPosition(shipsStartingPos[i - 1]);
 				}
 			}
@@ -88,7 +93,7 @@ namespace Battleship
 			{
 				iDiff = coords[i].y / 10 - coords[i].x / 10;
 				jDiff = coords[i].y % 10 - coords[i].x % 10;
-				this->ships[i] = new ShipShape(iDiff + jDiff + 1, this->cellSize, sf::Color::Green, sf::Color::White, -1.f);
+				this->ships[i] = new ShipShape(iDiff + jDiff + 1, this->cellSize, sf::Color(0, 255, 0, 128), sf::Color::White, -1.f);
 				if (jDiff > 0)
 				{
 					this->ships[i]->rotate();
@@ -97,6 +102,21 @@ namespace Battleship
 				this->areShipsInDefaultPos = false;
 			}
 		}
+	}
+
+	void MapShape::destroyShipOnCell(int cellIndex)
+	{
+		this->cells[cellIndex].setFillColor(destroyedShipCellColor);
+	}
+
+	void MapShape::missOnCell(int cellIndex)
+	{
+		this->cells[cellIndex].setFillColor(missedCellColor);
+	}
+
+	void MapShape::chooseCell(int cellIndex)
+	{
+		this->cells[cellIndex].setFillColor(chosenCellColor);
 	}
 
 	void MapShape::saveMapShipsLocations()
@@ -123,17 +143,30 @@ namespace Battleship
 
 	}
 
-	void MapShape::updateCellChoosing(const sf::Vector2f& mousePos)
+	void MapShape::updateCellChoosingVisual(const sf::Vector2f& mousePos)
+	{
+		for (int i = 0; i < CELLS_COUNT; i++)
+		{
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && 
+				this->cells[i].getGlobalBounds().contains(mousePos) && 
+				this->cells[i].getFillColor() == this->defaultCellColor)
+			{
+				this->cells[i].setFillColor(this->chosenCellColor);
+			}
+			else if (cells[i].getFillColor() == chosenCellColor)
+			{
+				this->cells[i].setFillColor(defaultCellColor);
+			}
+		}
+	}
+
+	void MapShape::updateCellChoosing(const sf::Vector2f& mousePos, int& attackedCellIndex)
 	{
 		for (int i = 0; i < CELLS_COUNT; i++)
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && this->cells[i].getGlobalBounds().contains(mousePos))
 			{
-				this->cells[i].setFillColor(sf::Color::Color(0, 0, 139));
-			}
-			else if(cells[i].getFillColor() != sf::Color::Blue)
-			{
-				this->cells[i].setFillColor(sf::Color::Blue);
+				attackedCellIndex = i;
 			}
 		}
 	}
@@ -161,7 +194,7 @@ namespace Battleship
 		{
 			for (int j = 0; j < CELLS_IN_ROW_COUNT; j++)
 			{
-				this->cells[i * CELLS_IN_ROW_COUNT + j].setPosition(position.x + i * cellSize.x, position.y + j * cellSize.y);
+				this->cells[i * CELLS_IN_ROW_COUNT + j].setPosition(position.x + j * cellSize.x, position.y + i * cellSize.y);
 			}
 		}
 		if (!this->empty)
@@ -196,6 +229,26 @@ namespace Battleship
 		this->setPosition(sf::Vector2f(x, y));
 	}
 
+	void MapShape::setChosenCellColor(sf::Color color)
+	{
+		this->chosenCellColor = color;
+	}
+
+	void MapShape::setDestroyedShipCellColor(sf::Color color)
+	{
+		this->destroyedShipCellColor = color;
+	}
+
+	void MapShape::setMissedCellColor(sf::Color color)
+	{
+		this->missedCellColor = color;
+	}
+
+	void MapShape::setDefaultCellColor(sf::Color color)
+	{
+		this->defaultCellColor = color;
+	}
+
 	const sf::Vector2f& MapShape::getSize() const
 	{
 		return this->map.getSize();
@@ -204,5 +257,10 @@ namespace Battleship
 	const sf::Vector2f& MapShape::getPosition() const
 	{
 		return this->map.getPosition();
+	}
+
+	sf::RectangleShape& MapShape::operator[](int i)
+	{
+		return this->cells[i];
 	}
 }

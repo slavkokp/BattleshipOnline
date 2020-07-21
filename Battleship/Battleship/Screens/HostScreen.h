@@ -12,7 +12,9 @@ namespace Battleship
 		InputField* IPshowcase;
 		sf::Text showcaseLabel;
 		sf::Text waitingMsg;
+		sf::Packet firstTurnPacket;
 
+		unsigned short serverPort;
 		//private methods
 
 		void initShowcaseLabel(sf::Vector2f& windowSize, sf::Vector2f& showcaseSize);
