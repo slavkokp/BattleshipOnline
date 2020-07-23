@@ -35,7 +35,6 @@ namespace Battleship
 	{
 		if (this->listener.accept(this->clientSocket) != sf::Socket::Done)
 		{
-			//std::cout << "no connection attempts" << std::endl;
 			return false;
 		}
 		return true;

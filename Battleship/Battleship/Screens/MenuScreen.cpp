@@ -48,9 +48,7 @@ namespace Battleship
 		{
 			if (!this->data->player.getMap().validateMap())
 			{
-				// DEBUG, REMOVE LATER
-				this->data->player.setMap("Utils/BattleshipMapInput.txt");
-				//this->data->screenManager.addScreen(new MapEditingScreen(data, true), false);
+				this->data->screenManager.addScreen(new MapEditingScreen(data, new JoinScreen(this->data)), false);
 			}
 			else
 			{
@@ -62,9 +60,7 @@ namespace Battleship
 		{
 			if (!this->data->player.getMap().validateMap())
 			{
-				// DEBUG, REMOVE LATER
-				this->data->player.setMap("Utils/BattleshipMapInput.txt");
-				//this->data->screenManager.addScreen(new MapEditingScreen(data, true), false);
+				this->data->screenManager.addScreen(new MapEditingScreen(data, new HostScreen(this->data)), false);
 			}
 			else
 			{
@@ -74,7 +70,7 @@ namespace Battleship
 		}
 		if (this->menuOptions["Edit map"]->isPressed())
 		{
-			this->data->screenManager.addScreen(new MapEditingScreen(this->data, false), false);
+			this->data->screenManager.addScreen(new MapEditingScreen(this->data, nullptr), false);
 		}
 		if (this->menuOptions["Exit"]->isPressed())
 		{
@@ -100,10 +96,6 @@ namespace Battleship
 			if (sfEvent.type == sf::Event::Closed)
 			{
 				this->data->window.close();
-			}
-			if (sfEvent.type == sf::Event::Resized)
-			{
-				printf("Height: %d, Width: %d\n", sfEvent.size.height, sfEvent.size.width);
 			}
 		}
 	}

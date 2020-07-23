@@ -8,7 +8,7 @@ namespace Battleship
 		sf::Vector2f size(130, 20);
 		sf::Vector2f windowSize(this->data->window.getSize());
 		this->inputField = new InputField(size, sf::Vector2f((windowSize.x - size.x) / 2 , (windowSize.y - size.y) / 2),
-			this->data->resourceManager.getFont("ButtonFont"), "192.168.1.113", sf::Color::Green);
+			this->data->resourceManager.getFont("ButtonFont"), "", sf::Color::Green);
 		
 		this->connectionFailed = false;
 		this->connecting = false;

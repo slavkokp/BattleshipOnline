@@ -35,8 +35,6 @@ namespace Battleship
 
 		void initButtons(sf::Vector2f& windowSize);
 		void initGameStatusMsg(sf::Vector2f& windowSize);
-		void initPlayerClone();
-		void initOpponentsDummy();
 	public:
 		GameScreen(GameData* data);
 		~GameScreen();

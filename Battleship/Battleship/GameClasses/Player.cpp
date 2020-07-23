@@ -109,12 +109,6 @@ namespace Battleship
 		this->firstTurn = firstTurn;
 	}
 
-	void Player::printMaps()const
-	{
-		std::cout << "Opponent's map\t\tYour map" << std::endl;
-		BattleshipMap::printMapsInRow(this->opponentDummy, this->mapClone);
-	}
-
 	void Player::prepareDisplayalbeMaps()
 	{
 		this->mapClone.copy(this->map);

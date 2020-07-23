@@ -37,7 +37,6 @@ namespace Battleship
 		// if connection established, receives firstTurn packet and sets first turn, returns true when recieved
 		bool receiveFirstTurn(sf::Packet& packet);
 
-		void printMaps()const;
 		void prepareDisplayalbeMaps();
 
 		bool setMap(std::string filename);

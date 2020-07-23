@@ -30,6 +30,7 @@ namespace Battleship
 		if (this->shipShape.getRotation() != 0.f)
 		{
 			this->shipShape.rotate(90.f);
+			this->shipShape.move(0.f, -this->shipShape.getSize().x);
 		}
 		else
 		{
@@ -80,20 +81,26 @@ namespace Battleship
 		this->shipShape.setOutlineColor(color);
 	}
 
-	const sf::Vector2f& ShipShape::getSize() const
-	{
-		return this->shipShape.getSize();
-	}
-
-	const sf::Vector2f ShipShape::getPosition() const
+	const sf::Vector2f ShipShape::getSize() const
 	{
 		sf::FloatRect bounds = this->shipShape.getGlobalBounds();
 		return sf::Vector2f(bounds.width, bounds.height);
 	}
 
+	const sf::Vector2f ShipShape::getPosition() const
+	{
+		sf::FloatRect bounds = this->shipShape.getGlobalBounds();
+		return sf::Vector2f(bounds.left, bounds.top);
+	}
+
 	float ShipShape::getRotation() const
 	{
 		return this->shipShape.getRotation();
+	}
+
+	sf::FloatRect ShipShape::getGlobalBounds() const
+	{
+		return this->shipShape.getGlobalBounds();
 	}
 
 	void ShipShape::draw(sf::RenderTarget& target, sf::RenderStates states) const

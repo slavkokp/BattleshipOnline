@@ -20,47 +20,6 @@ namespace Battleship
 		this->fieldsLeft = other.fieldsLeft;
 	}
 
-	void BattleshipMap::printMap(const BattleshipMap& map)
-	{
-		for (int i = 0; i < MAP_SIZE; i++)
-		{
-			for (int j = 0; j < MAP_SIZE; j++)
-			{
-				std::cout << map.map[i][j] << ' ';
-			}
-			std::cout << std::endl;
-		}
-	}
-
-	void BattleshipMap::printMapsInRow(const BattleshipMap& map1, const BattleshipMap& map2)
-	{
-		char symb = 'A';
-		for (int i = 0; i < 2; i++)
-		{
-			if (!i) std::cout << "  ";
-			for (int j = 0; j < MAP_SIZE; j++)
-			{
-				std::cout << j + 1 << ' ';
-			}
-			std::cout << '\t';
-		}
-		std::cout << std::endl;
-		for (int i = 0; i < MAP_SIZE; i++)
-		{
-			std::cout << (char)(symb + i) << ' ';
-			for (int j = 0; j < MAP_SIZE; j++)
-			{
-				std::cout << map1.map[i][j] << ' ';
-			}
-			std::cout << '\t';
-			for (int j = 0; j < MAP_SIZE; j++)
-			{
-				std::cout << map2.map[i][j] << ' ';
-			}
-			std::cout << std::endl;
-		}
-	}
-
 	void BattleshipMap::copy(BattleshipMap& other)
 	{
 		this->fieldsLeft = other.fieldsLeft;
@@ -157,6 +116,11 @@ namespace Battleship
 			}
 		}
 		return res;
+	}
+
+	void BattleshipMap::setFieldsLeft(int value)
+	{
+		this->fieldsLeft = value;
 	}
 
 	bool BattleshipMap::readMapFromFile(std::string filePath)

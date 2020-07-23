@@ -27,13 +27,11 @@ namespace Battleship
 		// call this for valid map only
 		std::vector<sf::Vector2u> getShipsCoords();
 
+		void setFieldsLeft(int value);
 
 		void clear();
 		void copy(BattleshipMap& other);
 		bool readMapFromFile(std::string filePath);
 		bool validateMap()const;
-		
-		static void printMap(const BattleshipMap& map);
-		static void printMapsInRow(const BattleshipMap& map1, const BattleshipMap& map2);
 	};
 }

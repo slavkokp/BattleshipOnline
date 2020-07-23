@@ -21,7 +21,6 @@ namespace Battleship
 		sf::Color destroyedShipCellColor;
 		sf::Color missedCellColor;
 
-
 		bool areShipsInDefaultPos;
 		bool empty;
 
@@ -31,12 +30,24 @@ namespace Battleship
 		static const unsigned int CELLS_IN_ROW_COUNT = 10;
 		static const unsigned int SHIPS_COUNT = 10;
 
+		// variables for dragging
+		
+		bool dragShips[SHIPS_COUNT];
+		bool rotate;
+		bool startDrag;
+		bool returnToDefaultPos;
+		int dragShipIndex;
+		sf::Vector2f posDiff;
+		sf::Vector2f startPosBackup;
+
 		// private methods
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		
 		void initCells(sf::Color cellOutlineColor);
 		void initShips();
+		void initShipsStartingPos(const sf::Vector2f& mapPos);
+		void initDraggingVariables();
 	public:
 		MapShape(BattleshipMap& battleshipMap, sf::Vector2f cellSize, bool empty, sf::Vector2f position = sf::Vector2f(0.f, 0.f),
 				sf::Color cellFillColor = sf::Color::Blue, sf::Color cellOutlineColor = sf::Color::Black);
@@ -51,9 +62,10 @@ namespace Battleship
 		//changes color only
 		void chooseCell(int cellIndex);
 
-		void saveMapShipsLocations();
+		void rotateCurDraggedShip();
+		bool saveMapShipsLocations();
 		void setShipsPositionToDefault();
-		void updateShipsDragging();
+		void updateShipsDragging(sf::Vector2f& mousePosView, bool& displayMessage);
 		void updateCellChoosingVisual(const sf::Vector2f& mousePos);
 		void updateCellChoosing(const sf::Vector2f& mousePos, int& attackedCellIndex);
 		
@@ -78,6 +90,9 @@ namespace Battleship
 
 		const sf::Vector2f& getSize() const;
 		const sf::Vector2f& getPosition() const;
+		sf::FloatRect getGlobalBounds() const;
+		bool getAreShipsInDefaultPos() const;
+		bool getStartDrag() const;
 		sf::RectangleShape& operator[](int i);
 	};
 }

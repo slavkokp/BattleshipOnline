@@ -32,6 +32,8 @@ namespace Battleship
 
 		void setSize(const sf::Vector2f& size);
 		void setPosition(float x, float y);
+
+		// sets top left corner pos to \position
 		void setPosition(const sf::Vector2f& position);
 		void setOutlineThickness(float thickness);
 		void setFillColor(sf::Color color);
@@ -42,9 +44,13 @@ namespace Battleship
 
 		// getters
 
+		// returns width and height considering rotation
+		const sf::Vector2f getSize() const;
+		
 		// always returns coords of top left point, even if the shape is rotated 
-		const sf::Vector2f& getSize() const;
 		const sf::Vector2f getPosition() const;
+		
+		sf::FloatRect getGlobalBounds()const;
 		float getRotation() const;
 	};
 }

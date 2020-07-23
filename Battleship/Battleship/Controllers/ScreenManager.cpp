@@ -46,9 +46,6 @@ namespace Battleship
 	void ScreenManager::addScreen(Screen* screen, bool replaceCurrent)
 	{
 		this->requests.push(ScreenManagerRequest(screen, replaceCurrent, false, true));
-		//this->replace = replaceCurrent;
-		//this->add = true;
-		//this->newScreenPtr = screen;
 	}
 
 	Screen& ScreenManager::getCurrentScreen()

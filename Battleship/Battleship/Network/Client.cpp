@@ -24,7 +24,6 @@ namespace Battleship
 		if (this->socket.getRemotePort() == 0)
 		{
 			this->socket.connect(serverAdress, port);
-			//std::cout << "cannot connect to " << serverAdress.toString() << ':' << port << std::endl;
 			return false;
 		}
 		return true;
