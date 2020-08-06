@@ -22,6 +22,7 @@ namespace Battleship
 		// private methods
 		void initButtons(sf::Vector2f& windowSize);
 		void initMessages(sf::Vector2f& windowSize, sf::Vector2f& size);
+		void initInputField(sf::Vector2f& windowSize, sf::Vector2f& size);
 	public:
 		JoinScreen(GameData* data);
 		~JoinScreen();

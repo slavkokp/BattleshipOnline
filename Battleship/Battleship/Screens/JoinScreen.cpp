@@ -7,12 +7,11 @@ namespace Battleship
 	{
 		sf::Vector2f size(130, 20);
 		sf::Vector2f windowSize(this->data->window.getSize());
-		this->inputField = new InputField(size, sf::Vector2f((windowSize.x - size.x) / 2 , (windowSize.y - size.y) / 2),
-			this->data->resourceManager.getFont("ButtonFont"), "", sf::Color::Green);
-		
+
 		this->connectionFailed = false;
 		this->connecting = false;
 
+		this->initInputField(windowSize, size);
 		this->initButtons(windowSize);
 		this->initMessages(windowSize, size);
 		this->data->player.joinGame();
@@ -53,6 +52,14 @@ namespace Battleship
 		this->connectionMsg.setFillColor(sf::Color::White);
 		this->connectionMsg.setPosition(sf::Vector2f((windowSize.x - size.x) / 2,
 			(windowSize.y + size.y) / 2));
+	}
+
+	void JoinScreen::initInputField(sf::Vector2f& windowSize, sf::Vector2f& size)
+	{
+		this->inputField = new InputField(size);
+		this->inputField->setFont(this->data->resourceManager.getFont("ButtonFont"));
+		this->inputField->setOutlineColor(sf::Color::Green);
+		this->inputField->setPosition(sf::Vector2f((windowSize.x - size.x) / 2, (windowSize.y - size.y) / 2));
 	}
 
 	void JoinScreen::updateConnecting()

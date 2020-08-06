@@ -3,7 +3,10 @@
 
 namespace Battleship
 { 
-	ResourceManager::ResourceManager() : disposed(false) {}
+	ResourceManager::ResourceManager() : disposed(false) 
+	{
+		this->connected = this->connectToDataBase(CONNECTION_STRING);
+	}
 
 	ResourceManager::~ResourceManager()
 	{
@@ -12,6 +15,13 @@ namespace Battleship
 			delete &it.second;
 		}
 		this->music.clear();
+
+		if (DatabaseConnection != nullptr)
+		{
+			DatabaseConnection->close();
+			delete DatabaseConnection;
+			connected = false;
+		}
 		disposed = true;
 	}
 
@@ -97,5 +107,69 @@ namespace Battleship
 	void ResourceManager::resizeSprite(sf::Sprite& sprite, sf::Vector2f newBounds)
 	{
 		sprite.setScale(newBounds.x / sprite.getLocalBounds().width, newBounds.y / sprite.getLocalBounds().height);
+	}
+
+	bool ResourceManager::connectToDataBase(std::string connectionString)
+	{
+		try
+		{
+			this->DatabaseConnection = new pqxx::connection(connectionString);
+			return true;
+		}
+		catch (const std::exception& e)
+		{
+			std::cerr << e.what() << "\n";
+			return false;
+		}
+	}
+
+	bool ResourceManager::executeTransaction(std::string querry, pqxx::result& res, std::string& errorMsg)
+	{
+		if (this->connected && this->DatabaseConnection->is_open())
+		{
+			pqxx::work work(*DatabaseConnection);
+			try 
+			{
+				res = work.exec(querry);
+				work.commit();
+				return true;
+			}
+			catch (const pqxx::unique_violation& e)
+			{
+				errorMsg = e.what();
+				errorMsg = errorMsg.substr(errorMsg.find('('));
+				errorMsg = errorMsg.replace(errorMsg.find(")=("), 3, " ");
+				errorMsg = errorMsg.erase(0, 1);
+				errorMsg = errorMsg.erase(errorMsg.find(')'), 1);
+			}
+			catch (const std::exception& e)
+			{
+				errorMsg = e.what();
+			}
+		}
+		return false;
+	}
+
+	bool ResourceManager::executeNonTransaction(std::string querry, pqxx::result& res, std::string& errorMsg)
+	{
+		if (this->connected && this->DatabaseConnection->is_open())
+		{
+			pqxx::nontransaction NT(*DatabaseConnection);
+			try
+			{
+				res = NT.exec(querry);
+				return true;
+			}
+			catch (const std::exception& e)
+			{
+				errorMsg = e.what();
+			}
+		}
+		return false;
+	}
+
+	bool ResourceManager::isConnectedToDatabase()
+	{
+		return this->connected;
 	}
 }

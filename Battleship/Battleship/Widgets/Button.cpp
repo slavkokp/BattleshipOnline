@@ -37,6 +37,17 @@ namespace Battleship
 		this->shape.setSize(sf::Vector2f(this->text.getLocalBounds().width, this->text.getLocalBounds().height));
 	}
 
+	void Button::move(const sf::Vector2f& offset)
+	{
+		this->text.move(offset);
+		this->shape.move(offset);
+	}
+
+	sf::FloatRect Button::getGlobalBounds()const
+	{
+		return this->text.getGlobalBounds();
+	}
+
 	void Button::update(const sf::Vector2f& mousePos)
 	{
 		this->currState = ButtonState::IDLE;

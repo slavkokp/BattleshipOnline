@@ -8,16 +8,20 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
+//postgres inteface
+#include <pqxx/pqxx>
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
-#include <cctype>
 
+#include <cctype>
 #include <map>
 #include <unordered_map>
 #include <stack>
 #include <queue>
 #include <vector>
 #include <string>
+#include <regex>
 
 #endif // !PCH

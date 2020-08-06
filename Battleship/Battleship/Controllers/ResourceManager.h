@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#define CONNECTION_STRING "dbname = BattleshipBase user = battleshipbaseowner password = 555 hostaddr = 127.0.0.1 port = 5432"
+
 namespace Battleship
 {
 	class ResourceManager
@@ -14,6 +16,9 @@ namespace Battleship
 		std::map<std::string, sf::Font> fonts;
 		std::map<std::string, sf::Music&> music;
 
+		pqxx::connection *DatabaseConnection;
+		
+		bool connected;
 		bool disposed;
 	public:
 		ResourceManager();
@@ -32,5 +37,10 @@ namespace Battleship
 		sf::Music& getMusic(std::string musicTag);
 
 		static void resizeSprite(sf::Sprite& sprite, sf::Vector2f newBounds);
+
+		bool connectToDataBase(std::string connectionString);
+		bool executeTransaction(std::string querry, pqxx::result& res, std::string& errorMsg);
+		bool executeNonTransaction(std::string querry, pqxx::result& res, std::string& errorMsg);
+		bool isConnectedToDatabase();
 	};
 }

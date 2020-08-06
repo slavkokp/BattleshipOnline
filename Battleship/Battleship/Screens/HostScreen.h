@@ -15,8 +15,10 @@ namespace Battleship
 		sf::Packet firstTurnPacket;
 
 		unsigned short serverPort;
+
 		//private methods
 
+		void initIPshowcase(sf::Vector2f& windowSize, sf::Vector2f& showcaseSize);
 		void initShowcaseLabel(sf::Vector2f& windowSize, sf::Vector2f& showcaseSize);
 		void initWaitingMsg(sf::Vector2f& windowSize, sf::Vector2f& showcaseSize);
 	public:

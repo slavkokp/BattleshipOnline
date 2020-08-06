@@ -10,9 +10,8 @@ namespace Battleship
 			this->data->resourceManager.getFont("ButtonFont"), 16, 22, sf::Color::Black);
 
 		sf::Vector2f showcaseSize(130, 20);
-		this->IPshowcase = new InputField(showcaseSize, sf::Vector2f((windowSize.x - showcaseSize.x) / 2, (windowSize.y - showcaseSize.y) / 2), 
-			this->data->resourceManager.getFont("ButtonFont"), sf::IpAddress::getLocalAddress().toString(), sf::Color::White);
-
+		
+		this->initIPshowcase(windowSize, showcaseSize);
 		this->initShowcaseLabel(windowSize, showcaseSize);
 		this->initWaitingMsg(windowSize, showcaseSize);
 		
@@ -31,6 +30,15 @@ namespace Battleship
 	{
 		delete exitButton;
 		delete IPshowcase;
+	}
+
+	void HostScreen::initIPshowcase(sf::Vector2f& windowSize, sf::Vector2f& showcaseSize)
+	{
+		this->IPshowcase = new InputField(showcaseSize);
+		this->IPshowcase->setOutlineColor(sf::Color::White);
+		this->IPshowcase->setString(sf::IpAddress::getLocalAddress().toString());
+		this->IPshowcase->setFont(this->data->resourceManager.getFont("ButtonFont"));
+		this->IPshowcase->setPosition(sf::Vector2f((windowSize.x - showcaseSize.x) / 2, (windowSize.y - showcaseSize.y) / 2));
 	}
 
 	void HostScreen::initShowcaseLabel(sf::Vector2f& windowSize, sf::Vector2f& showcaseSize)

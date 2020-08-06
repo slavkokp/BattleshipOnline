@@ -3,7 +3,7 @@
 
 namespace Battleship
 {
-	InputField::InputField(sf::Vector2f size, sf::Vector2f pos, sf::Font& textFont, std::string defaultString, sf::Color outlineColor) : font(textFont)
+	InputField::InputField(sf::Vector2f size, sf::Vector2f pos, std::string defaultString, sf::Color outlineColor)
 	{
 		this->isActive = false;
 
@@ -14,12 +14,12 @@ namespace Battleship
 		this->inputShape.setFillColor(sf::Color::Color(139, 139, 139));
 
 		this->textString = defaultString;
+		this->displayedText = defaultString;
 
-		this->inputText.setString(textString);
+		this->inputText.setString(displayedText);
 		this->inputText.setCharacterSize((int)size.y - 2);
-		this->inputText.setFont(this->font);
 		this->inputText.setFillColor(sf::Color::Black);
-		this->inputText.setPosition(pos.x, pos.y);
+		this->inputText.setPosition(pos);
 	}
 
 	InputField::~InputField()
@@ -53,16 +53,36 @@ namespace Battleship
 			return;
 		}
 
-		this->textString = this->inputText.getString();
+		//this->textString = this->inputText.getString();
 		
+		this->displayedText = this->inputText.getString();
+
 		// if text backspace
 		if (chr == 8)
 		{
-			this->inputText.setString(this->textString.substring(0, textString.getSize() - 1));
+			if (displayedText.getSize() > 0)
+			{
+				size_t dispSize = displayedText.getSize();
+				size_t wholeTextSize = textString.getSize();
+				this->textString.erase(wholeTextSize-- - 1, 1);
+				this->displayedText.erase(dispSize-- - 1, 1);
+				if (dispSize != wholeTextSize)
+				{
+					displayedText = textString[wholeTextSize - dispSize - 1] + displayedText;
+				}
+				this->inputText.setString(displayedText);
+			}
 		}
 		else
 		{
-			this->inputText.setString(this->textString + chr);
+			this->textString += chr;
+			displayedText += chr;
+			while (this->inputText.getGlobalBounds().width > this->inputShape.getGlobalBounds().width)
+			{
+				displayedText.erase(0, 1);
+				this->inputText.setString(displayedText);
+			}
+			this->inputText.setString(displayedText);
 		}
 	}
 
@@ -70,7 +90,7 @@ namespace Battleship
 	{
 		if (event.key.control && event.key.code == sf::Keyboard::C && this->isActive)
 		{
-			sf::Clipboard::setString(this->inputText.getString());
+			sf::Clipboard::setString(this->textString);
 		}
 	}
 
@@ -78,22 +98,57 @@ namespace Battleship
 	{
 		if (event.key.control && event.key.code == sf::Keyboard::V && this->isActive)
 		{
-			this->inputText.setString(sf::Clipboard::getString());
+			this->setString(sf::Clipboard::getString());
+			
 		}
 	}
 
 	void InputField::setString(std::string str)
 	{
-		this->inputText.setString(str);
+		this->textString = str;
+		this->displayedText = textString;
+		this->inputText.setString(displayedText);
+		while (this->inputText.getGlobalBounds().width > this->inputShape.getGlobalBounds().width)
+		{
+			displayedText.erase(0, 1);
+			this->inputText.setString(displayedText);
+		}
+		this->inputText.setString(displayedText);
 	}
 
-	std::string InputField::getText()
+	void InputField::setOutlineColor(sf::Color color)
 	{
-		return this->inputText.getString();
+		this->inputShape.setOutlineColor(color);
 	}
 
-	bool InputField::getIsActive()
+	void InputField::setPosition(sf::Vector2f pos)
+	{
+		this->inputShape.setPosition(pos);
+		this->inputText.setPosition(pos);
+	}
+
+	void InputField::setFont(sf::Font& font)
+	{
+		this->inputText.setFont(font);
+	}
+
+	std::string InputField::getText()const
+	{
+		return this->textString;
+	}
+
+	bool InputField::getIsActive()const
 	{
 		return this->isActive;
+	}
+
+	sf::Vector2f InputField::getPosition()const
+	{
+		return this->inputShape.getPosition();
+	}
+
+	sf::FloatRect InputField::getGlobalBounds()const
+	{
+		return this->inputShape.getGlobalBounds();
 	}
 }

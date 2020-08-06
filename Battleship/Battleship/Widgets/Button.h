@@ -35,6 +35,9 @@ namespace Battleship
 		~Button();
 
 		void setString(std::string str);
+		void move(const sf::Vector2f& offset);
+		
+		sf::FloatRect getGlobalBounds()const;
 
 		bool isPressed();
 		void update(const sf::Vector2f& mousePos);
