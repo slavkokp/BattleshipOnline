@@ -2,6 +2,7 @@
 
 #include "MapEditingScreen.h"
 #include "HostScreen.h"
+#include "MatchHistoryScreen.h"
 
 namespace Battleship
 {

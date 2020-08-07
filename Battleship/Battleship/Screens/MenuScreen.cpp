@@ -16,7 +16,7 @@ namespace Battleship
 		}
 		
 		data->resourceManager.loadFontFromFile("ButtonFont", "Resourses/VINERITC.TTF");
-		std::vector<std::string> menuOptionsText{ "Join", "Host game", "Edit map", "Exit" };
+		std::vector<std::string> menuOptionsText{ "Join", "Host game", "Edit map", "Match history", "Exit" };
 		for (int i = 0; i < menuOptionsText.size(); i++)
 		{
 			this->menuOptions[menuOptionsText[i]] = new Button(sf::Vector2f(this->data->window.getSize().x / 5.f, this->data->window.getSize().y / 3.f + 44.f * i), 
@@ -71,6 +71,10 @@ namespace Battleship
 		if (this->menuOptions["Edit map"]->isPressed())
 		{
 			this->data->screenManager.addScreen(new MapEditingScreen(this->data, nullptr), false);
+		}
+		if (this->menuOptions["Match history"]->isPressed())
+		{
+			this->data->screenManager.addScreen(new MatchHistoryScreen(this->data), false);
 		}
 		if (this->menuOptions["Exit"]->isPressed())
 		{
