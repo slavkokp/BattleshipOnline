@@ -3,9 +3,10 @@
 
 namespace Battleship
 {
-	GameScreen::GameScreen(GameData* data) : data(data), playerClone(data->player.getMapClone(), sf::Vector2f(20, 20), false),
+	GameScreen::GameScreen(GameData* data, std::string nameOfOpponent) : data(data), playerClone(data->player.getMapClone(), sf::Vector2f(20, 20), false),
 		opponentsDummy(data->player.getOpponentDummy(), sf::Vector2f(20, 20), true), opponentSocket(data->player.getConnection()->getSocket())
 	{
+		this->nameOfOpponent = nameOfOpponent;
 		sf::Vector2f windowSize(this->data->window.getSize());
 		this->opponentsDummy.setPosition(sf::Vector2f(windowSize.x / 2.f - 300, windowSize.y / 2.f - 100));
 		this->opponentsDummy.setDestroyedShipCellColor(sf::Color::Green);
@@ -32,6 +33,7 @@ namespace Battleship
 		this->won = false;
 		this->waitingForPlayer = true;
 		this->missed = false;
+		this->savedResult = false;
 	}
 
 	GameScreen::~GameScreen()
@@ -71,6 +73,24 @@ namespace Battleship
 		sf::FloatRect bounds = this->gameStatusMsg.getGlobalBounds();
 		this->gameStatusMsg.setPosition(sf::Vector2f((windowSize.x - bounds.width) / 2,
 			(windowSize.y + opponentsDummy.getSize().y) / 2));
+	}
+
+	void GameScreen::saveGameResult()
+	{
+		if (!this->savedResult)
+		{
+			std::string querry =
+				"INSERT INTO game_match " \
+				"VALUES((SELECT MAX(match_id)" \
+				"FROM game_match) + 1, (SELECT localtimestamp), \'" + this->data->player.getName() + "\', \'" + nameOfOpponent + "\');";
+			pqxx::result res;
+			std::string errorMsg;
+			if (!this->data->resourceManager.executeTransaction(querry, res, errorMsg))
+			{
+				this->gameStatusMsg.setString(errorMsg);
+			}
+			this->savedResult = true;
+		}
 	}
 
 	void GameScreen::setGameStatusMsgString(std::string msg)
@@ -174,6 +194,7 @@ namespace Battleship
 			if (won)
 			{
 				this->setGameStatusMsgString("You won!");
+				saveGameResult();
 			}
 			this->drawOKbtn = true;
 			this->packet.clear();
@@ -196,6 +217,7 @@ namespace Battleship
 		if (status == sf::Socket::Disconnected)
 		{
 			this->setGameStatusMsgString("You won, opponent disconnected!");
+			saveGameResult();
 			this->won = true;
 			this->drawOKbtn = true;
 		}
@@ -242,26 +264,29 @@ namespace Battleship
 		{
 			this->updateButtonsFunction();
 			this->opponentsDummy.updateCellChoosingVisual(this->data->inputManager.getMousePosView());
-			if (this->waitingForPlayer)
+			if (!won)
 			{
-				if (this->myTurn)
+				if (this->waitingForPlayer)
 				{
-					this->opponentsDummy.updateCellChoosing(this->data->inputManager.getMousePosView(), this->attackedCellIndex);
-					if (!this->cellStatusArr[attackedCellIndex])
+					if (this->myTurn)
 					{
-						this->attack(this->attackedCellIndex);
-						this->cellStatusArr[attackedCellIndex] = true;
-						this->waitingForPlayer = false;
+						this->opponentsDummy.updateCellChoosing(this->data->inputManager.getMousePosView(), this->attackedCellIndex);
+						if (!this->cellStatusArr[attackedCellIndex])
+						{
+							this->attack(this->attackedCellIndex);
+							this->cellStatusArr[attackedCellIndex] = true;
+							this->waitingForPlayer = false;
+						}
+						else
+						{
+							return;
+						}
 					}
 					else
 					{
-						return;
+						this->startRecievingInput = true;
+						this->waitingForPlayer = false;
 					}
-				}
-				else
-				{
-					this->startRecievingInput = true;
-					this->waitingForPlayer = false;
 				}
 			}
 		}

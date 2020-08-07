@@ -15,7 +15,10 @@ namespace Battleship
 		sf::Packet firstTurnPacket;
 
 		unsigned short serverPort;
-
+		std::string nameOfOpponent;
+		sf::Packet namePacket;
+		bool sending;
+		bool receiving;
 		//private methods
 
 		void initIPshowcase(sf::Vector2f& windowSize, sf::Vector2f& showcaseSize);
@@ -25,6 +28,8 @@ namespace Battleship
 		HostScreen(GameData* data);
 		~HostScreen();
 		
+		bool sendName();
+		bool receiveName();
 		void updateButtonVisual();
 		void updateButtonFunction();
 		void update() override;

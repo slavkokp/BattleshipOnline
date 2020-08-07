@@ -18,6 +18,9 @@ namespace Battleship
 		bool firstTurn = rand() % 2;
 		this->data->player.setFirstTurn(firstTurn);
 		this->firstTurnPacket << !firstTurn;
+		this->namePacket << this->data->player.getName();
+		this->sending = false;
+		this->receiving = false;
 
 		bool validPort = this->data->player.hostGame(serverPort);
 		if (!validPort)
@@ -64,6 +67,39 @@ namespace Battleship
 			(windowSize.y + showcaseSize.y) / 2));
 	}
 
+	bool HostScreen::sendName()
+	{
+		if (this->data->player.getConnection()->getSocket().getRemotePort() != 0)
+		{
+			this->sending = true;
+			if (this->data->player.getConnection()->getSocket().send(this->namePacket) != sf::Socket::Done)
+			{
+				return false;
+			}
+			this->sending = false;
+			this->namePacket.clear();
+			return true;
+		}
+		return false;
+	}
+
+	bool HostScreen::receiveName()
+	{
+		if (this->data->player.getConnection()->getSocket().getRemotePort() != 0)
+		{
+			this->receiving = true;
+			if (this->data->player.getConnection()->getSocket().receive(this->namePacket) != sf::Socket::Done)
+			{
+				return false;
+			}
+			this->receiving = false;
+			this->namePacket >> this->nameOfOpponent;
+			this->namePacket.clear();
+			return true;
+		}
+		return false;
+	}
+
 	void HostScreen::updateButtonVisual()
 	{
 		this->exitButton->update(this->data->inputManager.getMousePosView());
@@ -86,9 +122,15 @@ namespace Battleship
 			this->updateButtonFunction();
 		}
 		// if connection established and first turn sent ==> go to game screen
-		if (this->data->player.getConnection()->isReady(0, "") && this->data->player.sendFirstTurn(this->firstTurnPacket))
+		if (receiving || sending || (this->data->player.getConnection()->isReady(0, "") && this->data->player.sendFirstTurn(this->firstTurnPacket)))
 		{
-			this->data->screenManager.addScreen(new GameScreen(data), true);
+			if (receiving || this->sendName())
+			{
+				if (this->receiveName())
+				{
+					this->data->screenManager.addScreen(new GameScreen(data, nameOfOpponent), true);
+				}
+			}
 		}
 	}
 

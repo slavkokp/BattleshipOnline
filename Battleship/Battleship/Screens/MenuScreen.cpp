@@ -48,7 +48,10 @@ namespace Battleship
 		{
 			if (!this->data->player.getMap().validateMap())
 			{
-				this->data->screenManager.addScreen(new MapEditingScreen(data, new JoinScreen(this->data)), false);
+				//this->data->screenManager.addScreen(new MapEditingScreen(data, new JoinScreen(this->data)), false);
+				this->data->player.setMap("Utils/BattleshipMapInput2.txt");
+				this->data->player.prepareDisplayalbeMaps();
+				this->data->screenManager.addScreen(new JoinScreen(data), false);
 			}
 			else
 			{
@@ -60,7 +63,10 @@ namespace Battleship
 		{
 			if (!this->data->player.getMap().validateMap())
 			{
-				this->data->screenManager.addScreen(new MapEditingScreen(data, new HostScreen(this->data)), false);
+				//this->data->screenManager.addScreen(new MapEditingScreen(data, new HostScreen(this->data)), false);
+				this->data->player.setMap("Utils/BattleshipMapInput.txt");
+				this->data->player.prepareDisplayalbeMaps();
+				this->data->screenManager.addScreen(new HostScreen(data), false);
 			}
 			else
 			{

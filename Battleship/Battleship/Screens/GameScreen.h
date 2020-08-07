@@ -10,6 +10,7 @@ namespace Battleship
 		GameData* data;
 		MapShape playerClone;
 		MapShape opponentsDummy;
+		std::string nameOfOpponent;
 		sf::Text gameStatusMsg;
 		sf::Packet packet;
 		sf::TcpSocket& opponentSocket;
@@ -30,25 +31,30 @@ namespace Battleship
 		bool startRecievingAttackRes;
 		bool startRecievingInput;
 		bool startSendingAttackRes;
-
+		bool savedResult;
 		// private methods
 
 		void initButtons(sf::Vector2f& windowSize);
 		void initGameStatusMsg(sf::Vector2f& windowSize);
 	public:
-		GameScreen(GameData* data);
+		GameScreen(GameData* data, std::string nameOfOpponent);
 		~GameScreen();
 
+		void saveGameResult();
 		void setGameStatusMsgString(std::string msg);
+		
 		void sendInput();
 		void sendAttackRes();
 		void receiveInput();
 		void receiveAttackRes();
+		
 		void attack(int cellNum);
+		
 		void updateConnectionStatus(sf::Socket::Status& status);
 		void updateButtonsVisual();
 		void updateButtonsFunction();
 		void update()override;
+		
 		void handleEvents()override;
 		void render()override;
 	};

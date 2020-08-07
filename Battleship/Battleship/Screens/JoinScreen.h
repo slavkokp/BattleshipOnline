@@ -14,10 +14,14 @@ namespace Battleship
 		sf::Text inputMsg;
 		sf::Text connectionMsg;
 		
+		std::string nameOfOpponent;
 		sf::Packet firstTurnPacket;
+		sf::Packet namePacket;
 		sf::Clock connectionTimer;
 		bool connectionFailed;
 		bool connecting;
+		bool sending;
+		bool receiving;
 
 		// private methods
 		void initButtons(sf::Vector2f& windowSize);
@@ -27,6 +31,8 @@ namespace Battleship
 		JoinScreen(GameData* data);
 		~JoinScreen();
 
+		bool sendName();
+		bool receiveName();
 		void updateConnecting();
 		void updateButtonsVisual();
 		void updateButtonsFunction();

@@ -48,10 +48,10 @@ namespace Battleship
 				sf::FloatRect headerBounds = header->getGlobalBounds();
 				this->matchList.push_back(new MatchHistoryLine(sf::Vector2f(headerBounds.left, headerBounds.top + headerBounds.height), size, &res[0], font, playerName, false));
 			}
-			for (int i = 1; i < 100; i++)
+			for (int i = 1; i < res.size(); i++)
 			{
 				sf::FloatRect prevBounds = matchList[i - 1]->getGlobalBounds();
-				this->matchList.push_back(new MatchHistoryLine(sf::Vector2f(prevBounds.left, prevBounds.height + prevBounds.top), size, &res[i%2], font, playerName, false));
+				this->matchList.push_back(new MatchHistoryLine(sf::Vector2f(prevBounds.left, prevBounds.height + prevBounds.top), size, &res[i], font, playerName, false));
 			}
 		}
 	}
@@ -85,14 +85,6 @@ namespace Battleship
 		std::string errorString;
 		if(this->data->resourceManager.executeNonTransaction(querry, res, errorString))
 		{
-			for (int i = 0; i < res.size(); i++)
-			{
-				for (int j = 0; j < 3; j++)
-				{
-					std::cout << res[i][j] << " ";
-				}
-				std::cout << "\n";
-			}
 			return true;
 		}
 		errorOccured = true;

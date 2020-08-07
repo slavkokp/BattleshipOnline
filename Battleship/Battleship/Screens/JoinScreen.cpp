@@ -10,6 +10,8 @@ namespace Battleship
 
 		this->connectionFailed = false;
 		this->connecting = false;
+		this->sending = false;
+		this->receiving = false;
 
 		this->initInputField(windowSize, size);
 		this->initButtons(windowSize);
@@ -62,12 +64,54 @@ namespace Battleship
 		this->inputField->setPosition(sf::Vector2f((windowSize.x - size.x) / 2, (windowSize.y - size.y) / 2));
 	}
 
+
+	bool JoinScreen::sendName()
+	{
+		if (this->data->player.getConnection()->getSocket().getRemotePort() != 0)
+		{
+			this->sending = true;
+			if (this->data->player.getConnection()->getSocket().send(this->namePacket) != sf::Socket::Done)
+			{
+				return false;
+			}
+			this->sending = false;
+			this->namePacket.clear();
+			return true;
+		}
+		return false;
+	}
+
+	bool JoinScreen::receiveName()
+	{
+		if (this->data->player.getConnection()->getSocket().getRemotePort() != 0)
+		{
+			this->receiving = true;
+			if (this->data->player.getConnection()->getSocket().receive(this->namePacket) != sf::Socket::Done)
+			{
+				return false;
+			}
+			this->receiving = false;
+			this->namePacket >> this->nameOfOpponent;
+			this->namePacket.clear();
+			this->namePacket << this->data->player.getName();
+			return true;
+		}
+		return false;
+	}
+
+
 	void JoinScreen::updateConnecting()
 	{
-		if (this->data->player.getConnection()->isReady(55555, this->inputField->getText()) &&
-			this->data->player.receiveFirstTurn(this->firstTurnPacket))
+		if (sending || receiving || (this->data->player.getConnection()->isReady(55555, this->inputField->getText()) &&
+			this->data->player.receiveFirstTurn(this->firstTurnPacket)))
 		{
-			this->data->screenManager.addScreen(new GameScreen(this->data), true);
+			if (sending || this->receiveName())
+			{
+				if (this->sendName())
+				{
+					this->data->screenManager.addScreen(new GameScreen(this->data, nameOfOpponent), true);
+				}
+			}
 		}
 		if (this->connectionTimer.getElapsedTime().asSeconds() > 10.f)
 		{
