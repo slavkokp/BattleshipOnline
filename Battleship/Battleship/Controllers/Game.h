@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cctype>
-#include <sstream>
 #include "../Screens/LoginScreen.h"
 
 namespace Battleship

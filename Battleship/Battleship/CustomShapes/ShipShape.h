@@ -1,7 +1,5 @@
 #pragma once
 
-#include<SFML/Graphics.hpp>
-
 namespace Battleship
 {
 	class ShipShape : public sf::Drawable, public sf::Transformable

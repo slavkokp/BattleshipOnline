@@ -1,7 +1,5 @@
 #pragma once
 
-#include <stack>
-#include <queue>
 #include "ResourceManager.h"
 #include "../Screens/Screen.h"
 #include "../Widgets/Button.h"

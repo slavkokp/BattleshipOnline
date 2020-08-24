@@ -1,11 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <vector>
-#include <SFML/System/Vector2.hpp>
-
 namespace Battleship
 {
 	enum Action { Hit = 2, Missed };

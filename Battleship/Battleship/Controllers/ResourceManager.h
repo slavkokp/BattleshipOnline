@@ -1,11 +1,6 @@
 #pragma once
 
-#include <map>
-#include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-
-#define CONNECTION_STRING "dbname = BattleshipBase user = battleshipbaseowner password = 555 hostaddr = 127.0.0.1 port = 5432"
+#define CONNECTION_STRING "dbname = BattleshipBase user = battleshipbaseowner password = 555 hostaddr = 192.168.1.108 port = 5432"
 
 namespace Battleship
 {

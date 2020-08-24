@@ -127,9 +127,9 @@ namespace Battleship
 	bool SignInScreen::signIn()
 	{
 		this->multipleCallsProtection = true;
+		std::string errorText;
 		if (this->data->resourceManager.isConnectedToDatabase())
 		{
-			std::string errorText;
 			std::map<std::string, std::string> input;
 			if (!this->parseInput(input, errorText))
 			{
@@ -158,6 +158,9 @@ namespace Battleship
 		}
 		else
 		{
+			this->error = true;
+			errorText = "Can't connect to database(try restarting app)";
+			this->changeErrorMsgString(errorText);
 			return false;
 		}
 	}
