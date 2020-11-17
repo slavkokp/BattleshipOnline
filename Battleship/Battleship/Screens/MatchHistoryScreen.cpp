@@ -41,17 +41,17 @@ namespace Battleship
 			sf::Vector2f size(windowSize.x / 3 * 2, 20);
 			std::string playerName = this->data->player.getName();
 
-			this->header = new MatchHistoryLine(sf::Vector2f((windowSize.x - size.x) / 2.f, windowSize.y / 3.5f), size, &res[0], font, playerName, true);
+			this->header = new MatchHistoryLine(sf::Vector2f((windowSize.x - size.x) / 2.f, windowSize.y / 3.5f), size, res[0], font, playerName, true);
 			
 			if (res.size() > 0)
 			{
 				sf::FloatRect headerBounds = header->getGlobalBounds();
-				this->matchList.push_back(new MatchHistoryLine(sf::Vector2f(headerBounds.left, headerBounds.top + headerBounds.height), size, &res[0], font, playerName, false));
+				this->matchList.push_back(new MatchHistoryLine(sf::Vector2f(headerBounds.left, headerBounds.top + headerBounds.height), size, res[0], font, playerName, false));
 			}
 			for (int i = 1; i < res.size(); i++)
 			{
 				sf::FloatRect prevBounds = matchList[i - 1]->getGlobalBounds();
-				this->matchList.push_back(new MatchHistoryLine(sf::Vector2f(prevBounds.left, prevBounds.height + prevBounds.top), size, &res[i], font, playerName, false));
+				this->matchList.push_back(new MatchHistoryLine(sf::Vector2f(prevBounds.left, prevBounds.height + prevBounds.top), size, res[i], font, playerName, false));
 			}
 		}
 	}

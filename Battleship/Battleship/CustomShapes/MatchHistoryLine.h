@@ -15,7 +15,7 @@ namespace Battleship
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	public:
-		MatchHistoryLine(sf::Vector2f pos, sf::Vector2f size, pqxx::row* row, sf::Font& font, std::string& playerName, bool isHeader);
+		MatchHistoryLine(sf::Vector2f pos, sf::Vector2f size, pqxx::row row, sf::Font& font, std::string& playerName, bool isHeader);
 		~MatchHistoryLine();
 
 		void setOutlineThickness(float thickness);

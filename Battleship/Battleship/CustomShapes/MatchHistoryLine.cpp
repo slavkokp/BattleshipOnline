@@ -3,10 +3,10 @@
 
 namespace Battleship
 {
-	MatchHistoryLine::MatchHistoryLine(sf::Vector2f pos, sf::Vector2f size, pqxx::row* row, sf::Font& font, std::string& playerName, bool isHeader) : font(font)
+	MatchHistoryLine::MatchHistoryLine(sf::Vector2f pos, sf::Vector2f size, pqxx::row row, sf::Font& font, std::string& playerName, bool isHeader) : font(font)
 	{
 		this->initContainer(pos, size);
-		this->initColumnTexts(*row, playerName, isHeader);
+		this->initColumnTexts(row, playerName, isHeader);
 	}
 
 	MatchHistoryLine::~MatchHistoryLine()

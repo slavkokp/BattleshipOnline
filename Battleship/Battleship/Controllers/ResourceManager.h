@@ -1,7 +1,7 @@
 #pragma once
 
-#define CONNECTION_STRING "dbname = BattleshipBase user = battleshipbaseowner password = 555 hostaddr = 192.168.1.108 port = 5432"
-
+//#define CONNECTION_STRING "dbname = BattleshipBase user = postgres password = 555 hostaddr = localhost port = 5432";
+#include <pqxx/pqxx>
 namespace Battleship
 {
 	class ResourceManager
@@ -11,7 +11,7 @@ namespace Battleship
 		std::map<std::string, sf::Font> fonts;
 		std::map<std::string, sf::Music&> music;
 
-		pqxx::connection *DatabaseConnection;
+		pqxx::connection* DatabaseConnection;
 		
 		bool connected;
 		bool disposed;
