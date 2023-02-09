@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Screens">
+      <UniqueIdentifier>{daecd30f-c1bd-4a6b-a540-a9c5dbb8730e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{0ba8e805-bb0e-488b-8a22-7908ce829dfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controllers">
+      <UniqueIdentifier>{cc7cb5ae-2d2d-4cb6-983f-82d21695950a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CustomShapes">
+      <UniqueIdentifier>{2c854b21-76c2-45a5-8a8a-25ed9de29e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Widgets">
+      <UniqueIdentifier>{24d41b1e-ca4d-423f-bf85-29e5f89017e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameClasses\BattleshipMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClasses\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\MapEditingScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\MenuScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Client.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Server.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controllers\Game.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controllers\ResourceManager.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Controllers\ScreenManager.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\Button.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Controllers\InputManager.cpp">
+      <Filter>Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\GameScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomShapes\MapShape.cpp">
+      <Filter>CustomShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomShapes\ShipShape.cpp">
+      <Filter>CustomShapes</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\HostScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\JoinScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Widgets\InputField.cpp">
+      <Filter>Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\Screen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\LoginScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\SignInScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Screens\MatchHistoryScreen.cpp">
+      <Filter>Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomShapes\MatchHistoryLine.cpp">
+      <Filter>CustomShapes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Screens\MapEditingScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\MenuScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\Screen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Client.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Connection.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Server.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClasses\BattleshipMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClasses\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\Game.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\ResourceManager.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\ScreenManager.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\Button.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers\InputManager.h">
+      <Filter>Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\GameScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomShapes\MapShape.h">
+      <Filter>CustomShapes</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomShapes\ShipShape.h">
+      <Filter>CustomShapes</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\HostScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\JoinScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Widgets\InputField.h">
+      <Filter>Widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\LoginScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\SignInScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Screens\MatchHistoryScreen.h">
+      <Filter>Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomShapes\MatchHistoryLine.h">
+      <Filter>CustomShapes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Utils\BattleshipMapInput.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="Utils\BattleshipMapInput2.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

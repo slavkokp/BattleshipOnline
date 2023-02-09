@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Controllers\Game.cpp" />
+    <ClCompile Include="Controllers\InputManager.cpp" />
+    <ClCompile Include="Controllers\ResourceManager.cpp" />
+    <ClCompile Include="Controllers\ScreenManager.cpp" />
+    <ClCompile Include="CustomShapes\MapShape.cpp" />
+    <ClCompile Include="CustomShapes\MatchHistoryLine.cpp" />
+    <ClCompile Include="CustomShapes\ShipShape.cpp" />
+    <ClCompile Include="GameClasses\BattleshipMap.cpp" />
+    <ClCompile Include="GameClasses\Player.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Network\Client.cpp" />
+    <ClCompile Include="Network\Server.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Screens\GameScreen.cpp" />
+    <ClCompile Include="Screens\HostScreen.cpp" />
+    <ClCompile Include="Screens\JoinScreen.cpp" />
+    <ClCompile Include="Screens\LoginScreen.cpp" />
+    <ClCompile Include="Screens\MapEditingScreen.cpp" />
+    <ClCompile Include="Screens\MatchHistoryScreen.cpp" />
+    <ClCompile Include="Screens\MenuScreen.cpp" />
+    <ClCompile Include="Screens\Screen.cpp" />
+    <ClCompile Include="Screens\SignInScreen.cpp" />
+    <ClCompile Include="Widgets\Button.cpp" />
+    <ClCompile Include="Widgets\InputField.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Controllers\Game.h" />
+    <ClInclude Include="Controllers\InputManager.h" />
+    <ClInclude Include="Controllers\ResourceManager.h" />
+    <ClInclude Include="Controllers\ScreenManager.h" />
+    <ClInclude Include="CustomShapes\MapShape.h" />
+    <ClInclude Include="CustomShapes\MatchHistoryLine.h" />
+    <ClInclude Include="CustomShapes\ShipShape.h" />
+    <ClInclude Include="GameClasses\BattleshipMap.h" />
+    <ClInclude Include="GameClasses\Player.h" />
+    <ClInclude Include="Network\Client.h" />
+    <ClInclude Include="Network\Connection.h" />
+    <ClInclude Include="Network\Server.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Screens\GameScreen.h" />
+    <ClInclude Include="Screens\HostScreen.h" />
+    <ClInclude Include="Screens\JoinScreen.h" />
+    <ClInclude Include="Screens\LoginScreen.h" />
+    <ClInclude Include="Screens\MapEditingScreen.h" />
+    <ClInclude Include="Screens\MatchHistoryScreen.h" />
+    <ClInclude Include="Screens\MenuScreen.h" />
+    <ClInclude Include="Screens\Screen.h" />
+    <ClInclude Include="Screens\SignInScreen.h" />
+    <ClInclude Include="Widgets\Button.h" />
+    <ClInclude Include="Widgets\InputField.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Utils\BattleshipMapInput.txt" />
+    <Text Include="Utils\BattleshipMapInput2.txt" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{1559DB15-25E9-48DA-8408-6AAB94B0B3B3}</ProjectGuid>
+    <RootNamespace>Battleship</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\libpqxx\basic_DLL.props" />
+    <Import Project="..\libpqxx\basic_libpqxx.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\libpqxx\basic_DLL.props" />
+    <Import Project="..\libpqxx\basic_libpqxx.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>CONNECTION_STRING="dbname = BattleshipBase user = postgres password = 555 hostaddr = 127.0.0.1 port = 5432";_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\User\source\libs\SFML-2.5.1_x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>CONNECTION_STRING="dbname = BattleshipBase user = postgres password = 555 hostaddr = 127.0.0.1 port = 5432";_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\PostgreSQL\lib;C:\Users\User\source\libs\SFML-2.5.1_x64\lib;$(SolutionDir)\libpqxx\Debug\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies> libpq.lib; pqxx.lib; ws2_32.lib; wsock32.lib;sfml-audio-d.lib;sfml-graphics-d.lib;sfml-network-d.lib;sfml-system-d.lib;sfml-window-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>CONNECTION_STRING="dbname = BattleshipBase user = postgres password = 555 hostaddr = 127.0.0.1 port = 5432";_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\User\source\libs\SFML-2.5.1_x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <PreprocessorDefinitions>CONNECTION_STRING="dbname = BattleshipBase user = postgres password = 555 hostaddr = 127.0.0.1 port = 5432";_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Users\User\source\libs\SFML-2.5.1_x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-network.lib;sfml-system.lib;sfml-window.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
