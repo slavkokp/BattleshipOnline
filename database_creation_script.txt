@@ -1,0 +1,15 @@
+CREATE TABLE player(
+	player_id int primary key,
+	nickname varchar not null,
+	"password" varchar not null,
+	email varchar not null unique
+);
+CREATE TABLE "game_match"(
+	match_id int primary key,
+	date_time timestamp, 
+	winner varchar not null,
+	loser varchar not null
+)
+
+
+-- you must insert 1 value to all tables in order for it to work
