@@ -1,15 +1,19 @@
 CREATE TABLE player(
-	player_id int primary key,
-	nickname varchar not null,
-	"password" varchar not null,
-	email varchar not null unique
+	player_id INT PRIMARY KEY,
+	nickname VARCHAR NOT NULL,
+	"password" VARCHAR NOT NULL,
+	email VARCHAR NOT NULL UNIQUE
 );
+
 CREATE TABLE "game_match"(
-	match_id int primary key,
-	date_time timestamp, 
-	winner varchar not null,
-	loser varchar not null
-)
+	match_id INT PRIMARY KEY,
+	date_time TIMESTAMP, 
+	winner VARCHAR NOT NULL,
+	loser VARCHAR NOT NULL
+);
 
+INSERT INTO player
+VALUES (1, '', '', '');
 
--- you must insert 1 value to all tables in order for it to work
+INSERT INTO game_match(match_id, winner, loser)
+VALUES (1, '', '');
