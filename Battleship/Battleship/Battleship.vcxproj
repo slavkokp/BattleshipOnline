@@ -149,7 +149,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.5.1_x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PreprocessorDefinitions>CONNECTION_STRING="dbname = BattleshipBase user = postgres password = 555 hostaddr = 127.0.0.1 port = 5432";_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\SFML-2.5.1_x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -182,7 +182,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)\SFML-2.5.1_x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PreprocessorDefinitions>CONNECTION_STRING="dbname = BattleshipBase user = postgres password = 555 hostaddr = 127.0.0.1 port = 5432";_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
