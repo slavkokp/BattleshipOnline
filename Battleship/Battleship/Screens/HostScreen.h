@@ -30,8 +30,8 @@ namespace Battleship
 		
 		bool sendName();
 		bool receiveName();
-		void updateButtonVisual();
 		void updateButtonFunction();
+		void updateButtonVisual();
 		void update() override;
 		void handleEvents() override;
 		void render() override;

@@ -33,7 +33,7 @@ namespace Battleship
 		}
 	}
 
-	void MenuScreen::updateMenuOptionsVisual()
+	void MenuScreen::updateButtonsVisual()
 	{
 		for (auto& it : this->menuOptions)
 		{
@@ -42,7 +42,7 @@ namespace Battleship
 		
 	}
 
-	void MenuScreen::updateMenuOptionsFunction()
+	void MenuScreen::updateButtonsFunction()
 	{
 		if (this->menuOptions["Join"]->isPressed())
 		{
@@ -91,11 +91,7 @@ namespace Battleship
 	void MenuScreen::update()
 	{
 		this->data->inputManager.updateMousePosView(this->data->window);
-		this->updateMenuOptionsVisual();
-		if (this->clock.getElapsedTime().asSeconds() > 0.3f)
-		{
-			this->updateMenuOptionsFunction();
-		}
+		this->updateButtonsVisual();
 	}
 
 	void MenuScreen::handleEvents()
@@ -106,6 +102,10 @@ namespace Battleship
 			if (sfEvent.type == sf::Event::Closed)
 			{
 				this->data->window.close();
+			}
+			if (sfEvent.type == sf::Event::MouseButtonPressed && sfEvent.mouseButton.button == sf::Mouse::Left)
+			{
+				this->updateButtonsFunction();
 			}
 		}
 	}

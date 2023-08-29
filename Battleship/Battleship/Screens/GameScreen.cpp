@@ -262,7 +262,6 @@ namespace Battleship
 		this->updateButtonsVisual();
 		if (this->clock.getElapsedTime().asSeconds() > 0.3f)
 		{
-			this->updateButtonsFunction();
 			this->opponentsDummy.updateCellChoosingVisual(this->data->inputManager.getMousePosView());
 			if (!won)
 			{
@@ -324,6 +323,11 @@ namespace Battleship
 					this->data->screenManager.removeScreen();
 				}
 			}
+			if (sfEvent.type == sf::Event::MouseButtonPressed && sfEvent.mouseButton.button == sf::Mouse::Left)
+			{
+				this->updateButtonsFunction();
+			}
+			
 		}
 	}
 

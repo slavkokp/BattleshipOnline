@@ -51,8 +51,8 @@ namespace Battleship
 		void attack(int cellNum);
 		
 		void updateConnectionStatus(sf::Socket::Status& status);
-		void updateButtonsVisual();
 		void updateButtonsFunction();
+		void updateButtonsVisual();
 		void update()override;
 		
 		void handleEvents()override;

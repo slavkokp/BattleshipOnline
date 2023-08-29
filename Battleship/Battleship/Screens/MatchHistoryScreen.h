@@ -28,8 +28,8 @@ namespace Battleship
 		MatchHistoryScreen(GameData* data);
 		~MatchHistoryScreen();
 
-		void updateButtonFunction();
-		void updateButtonVisual();
+		void updateButtonsFunction();
+		void updateButtonsVisual();
 		void update() override;
 		void handleEvents() override;
 		void render() override;

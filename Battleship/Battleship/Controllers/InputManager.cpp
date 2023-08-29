@@ -12,4 +12,9 @@ namespace Battleship
 	{
 		return this->mousePosView;
 	}
+
+	void InputManager::setMousePosView(const sf::Vector2i& mousePos, const sf::RenderWindow& window)
+	{
+		this->mousePosView = window.mapPixelToCoords(mousePos);
+	}
 }

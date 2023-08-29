@@ -9,5 +9,6 @@ namespace Battleship
 	public:
 		void updateMousePosView(const sf::RenderWindow& window);
 		sf::Vector2f& getMousePosView();
+		void setMousePosView(const sf::Vector2i& mousePos, const sf::RenderWindow& window);
 	};
 }

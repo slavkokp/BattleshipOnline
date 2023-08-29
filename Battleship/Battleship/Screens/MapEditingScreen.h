@@ -28,7 +28,8 @@ namespace Battleship
 		// applies changes on map to actual player's map
 		bool saveMap();
 		void setShipsPositionToDefault();
-		void updateButtons();
+		void updateButtonsFunction();
+		void updateButtonsVisual();
 		void updateShipsDragging();
 		void update()override;
 		void handleEvents()override;

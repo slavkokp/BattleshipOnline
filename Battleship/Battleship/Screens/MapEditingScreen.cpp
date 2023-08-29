@@ -61,12 +61,16 @@ namespace Battleship
 		}
 	}
 
-	void MapEditingScreen::updateButtons()
+	void MapEditingScreen::updateButtonsVisual()
 	{
 		for (auto& it : this->buttons)
 		{
 			it.second->update(this->data->inputManager.getMousePosView());
 		}
+	}
+
+	void MapEditingScreen::updateButtonsFunction()
+	{
 		if (this->buttons["Back"]->isPressed())
 		{
 			if (this->nextScreenPtr != nullptr)
@@ -120,8 +124,8 @@ namespace Battleship
 	void MapEditingScreen::update()
 	{
 		this->data->inputManager.updateMousePosView(this->data->window);
-		updateShipsDragging();
-		updateButtons();
+		this->updateShipsDragging();
+		this->updateButtonsVisual();
 	}
 
 	void MapEditingScreen::handleEvents()
@@ -144,6 +148,10 @@ namespace Battleship
 				{
 					this->map->rotateCurDraggedShip();
 				}
+			}
+			if (sfEvent.type == sf::Event::MouseButtonPressed && sfEvent.mouseButton.button == sf::Mouse::Left)
+			{
+				this->updateButtonsFunction();
 			}
 		}
 	}

@@ -19,8 +19,8 @@ namespace Battleship
 		MenuScreen(GameData* data);
 		~MenuScreen();
 
-		void updateMenuOptionsVisual();
-		void updateMenuOptionsFunction();
+		void updateButtonsFunction();
+		void updateButtonsVisual();
 		void update()override;
 		void handleEvents()override;
 		void render()override;

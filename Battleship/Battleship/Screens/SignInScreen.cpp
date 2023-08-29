@@ -177,10 +177,6 @@ namespace Battleship
 	{
 		this->data->inputManager.updateMousePosView(this->data->window);
 		this->updateButtonsVisual();
-		if (this->clock.getElapsedTime().asSeconds() > 0.3f)
-		{
-			this->updateButtonsFunction();
-		}
 	}
 
 	void SignInScreen::handleEvents()
@@ -197,6 +193,10 @@ namespace Battleship
 				for (auto& it : inputs)
 				{
 					it.second->update(this->data->inputManager.getMousePosView(), sfEvent.mouseButton.button);
+				}
+				if (sfEvent.mouseButton.button == sf::Mouse::Left)
+				{
+					this->updateButtonsFunction();
 				}
 			}
 			if (sfEvent.type == sf::Event::KeyPressed)

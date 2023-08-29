@@ -50,18 +50,21 @@ namespace Battleship
 
 	void Button::update(const sf::Vector2f& mousePos)
 	{
-		this->currState = ButtonState::IDLE;
-
 		if (this->shape.getGlobalBounds().contains(mousePos))
 		{
-			this->currState = ButtonState::HOVER;
-
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				this->currState = ButtonState::PRESSED;
+				changeState(ButtonState::PRESSED);
+				return;
 			}
+			changeState(ButtonState::HOVER);
+			return;
 		}
+		changeState(ButtonState::IDLE);
+	}
 
+	void Button::updateAnimations()
+	{
 		switch (this->currState)
 		{
 		case Battleship::IDLE:
@@ -86,6 +89,15 @@ namespace Battleship
 		case Battleship::PRESSED:
 			setTextColor(this->textColor, this->pressedButtonTextColor);
 			break;
+		}
+	}
+
+	void Button::changeState(const ButtonState& newState)
+	{
+		if (this->currState != newState)
+		{
+			this->currState = newState;
+			updateAnimations();
 		}
 	}
 

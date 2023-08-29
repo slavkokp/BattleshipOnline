@@ -41,5 +41,7 @@ namespace Battleship
 
 		bool isPressed();
 		void update(const sf::Vector2f& mousePos);
+		void updateAnimations();
+		void changeState(const ButtonState& newState);
 	};
 }

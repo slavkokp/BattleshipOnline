@@ -92,7 +92,7 @@ namespace Battleship
 		return false;
 	}
 
-	void MatchHistoryScreen::updateButtonFunction()
+	void MatchHistoryScreen::updateButtonsFunction()
 	{
 		if (this->backBtn->isPressed())
 		{
@@ -101,18 +101,14 @@ namespace Battleship
 		}
 	}
 
-	void MatchHistoryScreen::updateButtonVisual()
+	void MatchHistoryScreen::updateButtonsVisual()
 	{
 		this->backBtn->update(this->data->window.mapPixelToCoords(sf::Mouse::getPosition(this->data->window), this->defaultView));
 	}
 
 	void MatchHistoryScreen::update()
 	{
-		this->updateButtonVisual();
-		if (this->clock.getElapsedTime().asSeconds() > 0.3f)
-		{
-			this->updateButtonFunction();
-		}
+		this->updateButtonsVisual();
 	}
 
 	void MatchHistoryScreen::handleEvents()
@@ -142,6 +138,10 @@ namespace Battleship
 						this->listView.move(sf::Vector2f(0, sfEvent.mouseWheelScroll.delta * -20));
 					}
 				}
+			}
+			if (sfEvent.type == sf::Event::MouseButtonPressed && sfEvent.mouseButton.button == sf::Mouse::Left)
+			{
+				this->updateButtonsFunction();
 			}
 		}
 	}

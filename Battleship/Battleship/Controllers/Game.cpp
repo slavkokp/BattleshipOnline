@@ -6,6 +6,7 @@ namespace Battleship
 	Game::Game(int windowWidth, int windowHeight) : gameData(new GameData())
 	{
 		this->gameData->window.create(sf::VideoMode(windowWidth, windowHeight), "Battleship game", sf::Style::Default);
+		this->gameData->window.setVerticalSyncEnabled(true);
 		this->gameData->screenManager.addScreen(new LoginScreen(this->gameData), false);
 	}
 
@@ -19,8 +20,8 @@ namespace Battleship
 		while (this->gameData->window.isOpen())
 		{
 			this->gameData->screenManager.handleScreenSwitches();
-			this->gameData->screenManager.getCurrentScreen().handleEvents();
 			this->gameData->screenManager.getCurrentScreen().update();
+			this->gameData->screenManager.getCurrentScreen().handleEvents();
 			this->gameData->screenManager.getCurrentScreen().render();
 		}
 	}

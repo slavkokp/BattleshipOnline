@@ -148,10 +148,6 @@ namespace Battleship
 	{
 		this->data->inputManager.updateMousePosView(this->data->window);
 		this->updateButtonsVisual();
-		if (clock.getElapsedTime().asSeconds() > 0.3f)
-		{
-			this->updateButtonsFunction();
-		}
 		if (this->connecting)
 		{
 			this->updateConnecting();
@@ -170,6 +166,10 @@ namespace Battleship
 			if (sfEvent.type == sf::Event::MouseButtonPressed)
 			{
 				this->inputField->update(this->data->inputManager.getMousePosView(), sfEvent.mouseButton.button);
+				if (sfEvent.mouseButton.button == sf::Mouse::Left)
+				{
+					this->updateButtonsFunction();
+				}
 			}
 			if (sfEvent.type == sf::Event::KeyPressed)
 			{

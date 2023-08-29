@@ -117,10 +117,6 @@ namespace Battleship
 	{
 		this->data->inputManager.updateMousePosView(this->data->window);
 		this->updateButtonVisual();
-		if (this->clock.getElapsedTime().asSeconds() > 0.3f)
-		{
-			this->updateButtonFunction();
-		}
 		// if connection established and first turn sent ==> go to game screen
 		if (receiving || sending || (this->data->player.getConnection()->isReady(0, "") && this->data->player.sendFirstTurn(this->firstTurnPacket)))
 		{
@@ -146,6 +142,10 @@ namespace Battleship
 			if (sfEvent.type == sf::Event::MouseButtonPressed)
 			{
 				this->IPshowcase->update(this->data->inputManager.getMousePosView(), sfEvent.mouseButton.button);
+				if (sfEvent.mouseButton.button == sf::Mouse::Left)
+				{
+					this->updateButtonFunction();
+				}
 			}
 			if (sfEvent.type == sf::Event::KeyPressed)
 			{
